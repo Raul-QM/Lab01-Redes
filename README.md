@@ -70,8 +70,9 @@ Con un host inaccesible debe mostrar error: tiempo de espera SSH.
 Para demostrar continuidad, usar un inventario temporal con dos equipos autorizados,
 el primero inaccesible y el segundo real; pasar --inventario ruta.yaml.
 El script debe intentar ambos y devolver codigo 1 si hubo algun error.
-Las sesiones generan logs/<nombre>.log. Se ignoran en Git por contener informacion
-sensible; revisar y sanitizar antes de compartir evidencia.
+Las sesiones generan logs/<nombre>.log. Los originales se ignoran en Git.
+Se publico logs/mt-lab.sanitizado.log, copia del session_log real sin los avisos
+de accesos de otros estudiantes ni lineas en blanco repetidas.
 
 ## Topologia GNS3
 
@@ -113,7 +114,9 @@ La conexion SSH exitosa y el error real de autenticacion ya se verificaron.
 La continuidad tras errores adicionales se comprobo mediante sesiones simuladas.
 El repositorio indicado es https://github.com/Raul-QM/Lab01-Redes.
 El avance R1-R3 y la topologia se publicaron en la rama main mediante Git local.
-No se envio invitacion al profesor.
+Pendiente obligatorio antes de la entrega: invitar a randthat como colaborador
+y comprobar que la invitacion figure pendiente o aceptada. No se ha confirmado
+ese acceso. En Campus Virtual se entrega solo el enlace al repositorio.
 
 ## Uso de IA
 

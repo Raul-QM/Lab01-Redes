@@ -13,3 +13,4 @@ project-files/
 *.image
 *.bin
 env-linux/
+!logs/*.sanitizado.log

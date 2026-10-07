@@ -1,4 +1,4 @@
-# Datos de ejemplo del profesor; confirmar host y usuario antes de ejecutar.
+# Host y usuario del laboratorio comprobados mediante SSH.
 # Cambiar estudiante por su numero de lista antes de la segunda etapa (R6).
 estudiante: null
 
@@ -9,7 +9,7 @@ equipos:
     usuario: lab-ssh
     rol: escritura
 
-# Extra Cisco pendiente. No habilitar hasta contar con IOS y conectividad.
+# Cisco ya agregado a la topologia; extra SSH pendiente de configurar y probar.
 #  - nombre: cisco-gns3
 #    host: 10.60.30.203
 #    device_type: cisco_ios
