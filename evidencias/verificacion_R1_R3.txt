@@ -10,8 +10,12 @@ Codigo de salida: 1.
 Prueba simulada: cierre de sesion con with, session_log por equipo y
 continuidad tras timeout, error de autenticacion y error generico: OK.
 
-Autenticacion exitosa: PENDIENTE de clave local.
-Esta evidencia no demuestra una conexion SSH exitosa.
+Autenticacion exitosa: COMPROBADA por el estudiante desde Debian/WSL.
+Comando: wsl -d Debian -- env-linux/bin/python lab1_inventario.py
+Salida real compartida por el estudiante:
+mt-lab | 10.60.30.202 | ok
+La clave se ingreso mediante getpass y no se guardo ni publico.
+Archivo de sesion presente localmente: logs/mt-lab.log (excluido de Git).
 
 Repositorio: rama main publicada.
 R4-R6 no implementados en este avance.

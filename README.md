@@ -14,8 +14,9 @@ idempotencia y limpieza) quedan para la siguiente sesion.
 Entorno propio env/ preparado con Netmiko 4.8.0 y PyYAML 6.0.3.
 Inventario validado y sintaxis Python comprobada. El host 10.60.30.202:22 responde.
 Prueba real con una clave intencionalmente incorrecta: error de autenticacion SSH,
-controlado por el script (codigo de salida 1). Falta probar autenticacion exitosa
-con la clave del laboratorio ingresada localmente por el estudiante.
+controlado por el script (codigo de salida 1).
+Prueba SSH exitosa realizada por el estudiante desde Debian/WSL con getpass:
+mt-lab | 10.60.30.202 | ok. La clave se ingreso localmente y no se publico.
 Pruebas simuladas adicionales verificaron cierre de sesiones y continuidad tras errores.
 No se incluye reporte_estado.json porque corresponde a R4-R5 y debe salir de una ejecucion real.
 
@@ -36,8 +37,8 @@ python lab1_inventario.py
 
 Si no define la variable de entorno, getpass pide la clave sin mostrarla.
 El equipo mt-lab usa LAB_PASS_MT_LAB. Obtenga la clave del profesor;
-no la guarde en archivos ni la escriba en Git. Confirme primero la IP y usuario:
-10.60.30.202 y lab-ssh son los datos del ejemplo. estudiante permanece null hasta
+no la guarde en archivos ni la escriba en Git. La conexion con
+10.60.30.202 y lab-ssh ya se comprobo. estudiante permanece null hasta
 confirmar el numero de lista; no se usa para esta primera etapa.
 
 ## Ejecutar la prueba exitosa en Linux/WSL
@@ -60,7 +61,7 @@ Desde la carpeta del laboratorio, en PowerShell:
 
 Ingrese la clave cuando getpass la solicite; no se muestra ni se guarda en Git.
 El resultado esperado es mt-lab | 10.60.30.202 | ok.
-Esta comprobacion permanece pendiente hasta ejecutarla con la clave correcta.
+La comprobacion ya se realizo exitosamente desde Debian/WSL.
 
 ## Prueba de errores en clase
 
@@ -90,7 +91,7 @@ c7200-adventerprisek9-mz.124-24.T5.image.
 MD5 verificado: 6b89d0d804e1f2bb5b8bda66b5692047.
 GNS3 confirmo el arranque del Cisco y del MikroTik; los enlaces estan guardados.
 Consola MikroTik accesible en 192.168.56.107:5002; RouterOS 7.20.8 solicita login.
-El host del inventario responde por SSH; falta autenticacion exitosa.
+Autenticacion SSH al host del inventario comprobada desde Debian/WSL.
 No se ha confirmado que ese host corresponda al router local ni la conectividad entre PCs.
 El enunciado usa Cisco 3725, pero se agrego 7200 por solicitud del estudiante.
 El extra multivendor no esta habilitado. La LAN del MikroTik usa ether2 en este
@@ -103,12 +104,13 @@ El archivo .gns3 describe la topologia; requiere GNS3 VM y las imagenes instalad
 
 ## Pendiente para continuar otro dia
 
-1. Confirmar numero de lista, nombre y datos de acceso; probar SSH y errores reales.
+1. Confirmar numero de lista y nombre antes de implementar R6.
 2. Completar R4 y R5: parsers de los cuatro datos, comandos por fabricante, JSON y tabla.
 3. Completar R6: consultar, crear solo lo propio, verificar, segunda ejecucion sin cambios y --limpiar.
 
 El avance de clase solicitado por el enunciado es R1-R3 funcionando con push.
-La implementacion local por si sola no demuestra una conexion real ni reemplaza el push.
+La conexion SSH exitosa y el error real de autenticacion ya se verificaron.
+La continuidad tras errores adicionales se comprobo mediante sesiones simuladas.
 El repositorio indicado es https://github.com/Raul-QM/Lab01-Redes.
 El avance R1-R3 y la topologia se publicaron en la rama main mediante Git local.
 No se envio invitacion al profesor.
