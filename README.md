@@ -22,10 +22,11 @@ No se incluye reporte_estado.json porque corresponde a R4-R5 y debe salir de una
 ## Instalacion en Linux (equipo externo a GNS3)
 
 El enunciado pide Linux, VM o WSL2 para ejecutar el script.
+Debian en WSL esta disponible en este equipo; Ubuntu no dispone de ensurepip.
 
 ~~~bash
-python3 -m venv env
-source env/bin/activate
+python3 -m venv env-linux
+source env-linux/bin/activate
 python -m pip install -r requirements.txt
 python lab1_inventario.py --validar
 python lab1_inventario.py
@@ -36,6 +37,16 @@ El equipo mt-lab usa LAB_PASS_MT_LAB. Obtenga la clave del profesor;
 no la guarde en archivos ni la escriba en Git. Confirme primero la IP y usuario:
 10.60.30.202 y lab-ssh son los datos del ejemplo. estudiante permanece null hasta
 confirmar el numero de lista; no se usa para esta primera etapa.
+
+## Ejecutar la prueba exitosa en Linux/WSL
+
+Desde PowerShell en la carpeta del laboratorio:
+
+~~~powershell
+wsl -d Debian -- env-linux/bin/python lab1_inventario.py
+~~~
+
+La clave se ingresa localmente cuando getpass la solicita.
 
 ## Ejecutar la prueba exitosa en Windows
 
