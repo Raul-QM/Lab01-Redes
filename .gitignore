@@ -1,0 +1,14 @@
+env/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+logs/*
+!logs/.gitkeep
+tmp/
+project-files/
+*.qcow2
+*.img
+*.image
+*.bin

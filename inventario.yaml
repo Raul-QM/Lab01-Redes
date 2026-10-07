@@ -1,0 +1,17 @@
+# Datos de ejemplo del profesor; confirmar host y usuario antes de ejecutar.
+# Cambiar estudiante por su numero de lista antes de la segunda etapa (R6).
+estudiante: null
+
+equipos:
+  - nombre: mt-lab
+    host: 10.60.30.202
+    device_type: mikrotik_routeros
+    usuario: lab-ssh
+    rol: escritura
+
+# Extra Cisco pendiente. No habilitar hasta contar con IOS y conectividad.
+#  - nombre: cisco-gns3
+#    host: 10.60.30.203
+#    device_type: cisco_ios
+#    usuario: lab-ssh
+#    rol: lectura
