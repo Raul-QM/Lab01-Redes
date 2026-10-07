@@ -22,7 +22,9 @@ No se incluye reporte_estado.json porque corresponde a R4-R5 y debe salir de una
 ## Instalacion en Linux (equipo externo a GNS3)
 
 El enunciado pide Linux, VM o WSL2 para ejecutar el script.
-Debian en WSL esta disponible en este equipo; Ubuntu no dispone de ensurepip.
+Debian en WSL esta disponible en este equipo. El entorno env-linux/ se creo
+y sus dependencias se instalaron; --validar paso desde Linux.
+Ubuntu no dispone de ensurepip.
 
 ~~~bash
 python3 -m venv env-linux
