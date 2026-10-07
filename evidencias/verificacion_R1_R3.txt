@@ -1,0 +1,17 @@
+Verificacion del 2026-10-06
+
+Inventario: valido, 1 equipo.
+Entorno: Netmiko 4.8.0, PyYAML 6.0.3.
+Host 10.60.30.202 puerto 22: accesible.
+Prueba SSH real con clave de prueba incorrecta:
+mt-lab | 10.60.30.202 | error: autenticacion SSH
+Codigo de salida: 1.
+
+Prueba simulada: cierre de sesion con with, session_log por equipo y
+continuidad tras timeout, error de autenticacion y error generico: OK.
+
+Autenticacion exitosa: PENDIENTE de clave local.
+Esta evidencia no demuestra una conexion SSH exitosa.
+
+Repositorio: rama main publicada.
+R4-R6 no implementados en este avance.

@@ -11,8 +11,12 @@ idempotencia y limpieza) quedan para la siguiente sesion.
 - R3: ConnectHandler dentro de with, timeout, errores de autenticacion y otros errores por equipo; logs por nombre.
 - El script solo abre y cierra sesiones SSH. No aplica configuraciones.
 
-Implementacion revisada con Netmiko 4.8.0 y PyYAML 6.0.3 en el entorno de Semana 3.
-Inventario validado y sintaxis Python comprobada. La conexion SSH real aun no esta verificada.
+Entorno propio env/ preparado con Netmiko 4.8.0 y PyYAML 6.0.3.
+Inventario validado y sintaxis Python comprobada. El host 10.60.30.202:22 responde.
+Prueba real con una clave intencionalmente incorrecta: error de autenticacion SSH,
+controlado por el script (codigo de salida 1). Falta probar autenticacion exitosa
+con la clave del laboratorio ingresada localmente por el estudiante.
+Pruebas simuladas adicionales verificaron cierre de sesiones y continuidad tras errores.
 No se incluye reporte_estado.json porque corresponde a R4-R5 y debe salir de una ejecucion real.
 
 ## Instalacion en Linux (equipo externo a GNS3)
@@ -32,6 +36,18 @@ El equipo mt-lab usa LAB_PASS_MT_LAB. Obtenga la clave del profesor;
 no la guarde en archivos ni la escriba en Git. Confirme primero la IP y usuario:
 10.60.30.202 y lab-ssh son los datos del ejemplo. estudiante permanece null hasta
 confirmar el numero de lista; no se usa para esta primera etapa.
+
+## Ejecutar la prueba exitosa en Windows
+
+Desde la carpeta del laboratorio, en PowerShell:
+
+~~~powershell
+.\env\Scripts\python.exe .\lab1_inventario.py
+~~~
+
+Ingrese la clave cuando getpass la solicite; no se muestra ni se guarda en Git.
+El resultado esperado es mt-lab | 10.60.30.202 | ok.
+Esta comprobacion permanece pendiente hasta ejecutarla con la clave correcta.
 
 ## Prueba de errores en clase
 
@@ -60,8 +76,9 @@ Imagen importada desde el archivo proporcionado por el estudiante:
 c7200-adventerprisek9-mz.124-24.T5.image.
 MD5 verificado: 6b89d0d804e1f2bb5b8bda66b5692047.
 GNS3 confirmo el arranque del Cisco y del MikroTik; los enlaces estan guardados.
-La consola TCP no pudo verificarse desde este entorno por restriccion de acceso.
-Las IP, SSH y conectividad entre PCs quedan sin confirmar.
+Consola MikroTik accesible en 192.168.56.107:5002; RouterOS 7.20.8 solicita login.
+El host del inventario responde por SSH; falta autenticacion exitosa.
+No se ha confirmado que ese host corresponda al router local ni la conectividad entre PCs.
 El enunciado usa Cisco 3725, pero se agrego 7200 por solicitud del estudiante.
 El extra multivendor no esta habilitado. La LAN del MikroTik usa ether2 en este
 proyecto; ether8 en los apuntes pertenece a otra cantidad de adaptadores.
@@ -80,8 +97,8 @@ El archivo .gns3 describe la topologia; requiere GNS3 VM y las imagenes instalad
 El avance de clase solicitado por el enunciado es R1-R3 funcionando con push.
 La implementacion local por si sola no demuestra una conexion real ni reemplaza el push.
 El repositorio indicado es https://github.com/Raul-QM/Lab01-Redes.
-El conector disponible tiene solo lectura y Git local no alcanzo github.com;
-la publicacion quedo pendiente. No se envio invitacion al profesor.
+El avance R1-R3 y la topologia se publicaron en la rama main mediante Git local.
+No se envio invitacion al profesor.
 
 ## Uso de IA
 

@@ -12,3 +12,4 @@ project-files/
 *.img
 *.image
 *.bin
+env-linux/
