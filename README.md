@@ -1,6 +1,6 @@
 # Laboratorio 1 - Netmiko
 
-ITIEL-13, Redes Programables, UTN. Estudiante: Raúl.
+ITIEL-13, Redes Programables, UTN. Estudiante: **Raúl Quesada Morera, N=24**.
 Repositorio: https://github.com/Raul-QM/Lab01-Redes
 
 ## Objetivo y alcance
@@ -10,10 +10,12 @@ consulta el estado de cada equipo, genera JSON y asegura una loopback propia
 sin duplicados. --limpiar elimina exclusivamente los objetos de R6 del estudiante.
 
 El avance R1-R3 del 6 de octubre se conserva en los commits anteriores.
-R4-R6 están implementados. Las pruebas automáticas se ejecutaron el 19 de octubre
-(15 pruebas correctas tanto en Windows como en Debian/WSL). La prueba REAL completa de R4-R6 y su reporte final están
-pendientes de conexión al laboratorio, contraseña local y número de lista confirmado.
-No se presenta una simulación como ejecución real. Véase docs/VALIDACION.md.
+R4-R6 están implementados. El número 24 corresponde a la lista de la auditoría
+del profesor. La ejecución usa un MikroTik privado en GNS3 y Debian/WSL como
+cliente externo; véanse los resultados y limitaciones en docs/VALIDACION.md.
+La verificación SSH completa de R4-R6 terminó correctamente el 19 de octubre de
+2026 (Costa Rica; los JSON registran 20 de octubre en UTC). El reporte final y las
+cinco etapas reales están versionados. Pasan 18 pruebas automáticas en Windows y WSL.
 
 ## Requisitos
 
@@ -41,6 +43,18 @@ cd "C:\Users\EliteBook\Desktop\Redes Programables\Semana 4\Lab01"
 wsl -d Debian -- env-linux/bin/python lab1_inventario.py --validar
 ~~~
 
+En esta laptop se puede usar la credencial local protegida con Windows DPAPI:
+
+~~~powershell
+python ejecutar_local_windows.py lab1_inventario.py --estado
+python ejecutar_local_windows.py verificar_entrega.py
+~~~
+
+Este auxiliar ejecuta Python en Debian/WSL. La clave cifrada está únicamente en
+.local/clave_lab.dpapi, excluida de Git, vinculada a la cuenta Windows que la creó.
+No se muestra ni se pasa como argumento. En otro equipo se usa getpass o una variable
+de entorno con una credencial autorizada; el repo no distribuye contraseñas.
+
 El código también funciona en Windows con env/Scripts/python.exe, pero la ejecución
 solicitada por el enunciado es desde Linux/VM/WSL. La VM Debian de la práctica de
 Semana 5 es otra máquina; sus carpetas no se comparten automáticamente con WSL.
@@ -60,6 +74,8 @@ puerto es opcional (22 por defecto).
 
 Con estudiante: null se permite --estado y --validar. Aplicar o limpiar R6 se
 rechaza ANTES de conectar para evitar crear objetos con un número inventado.
+El inventario entregado usa 24 y el comentario ASCII `LAB01 N=24 - Raul Quesada Morera`,
+compatible con la consola del router. La loopback es lo-ssh-24 y su IP 10.253.0.24/32.
 
 La variable de clave se deriva del nombre: mt-lab -> LAB_PASS_MT_LAB;
 cisco-gns3 -> LAB_PASS_CISCO_GNS3. Si falta, getpass pide la clave sin mostrarla.
@@ -181,11 +197,12 @@ simuladas y NO acreditan conectividad ni permisos reales.
 Lab01.gns3 contiene la topología guardada:
 
 ~~~text
-Internet (eth1) -- SW1 (Ethernet0)
+Internet/Cloud (eth0, Host-only) -- SW1 (Ethernet0)
 SW1 (Ethernet1) -- MikroTik (ether1)
 MikroTik (ether2) -- PC2
 SW1 (Ethernet2) -- Cisco (FastEthernet0/0)
 Cisco (FastEthernet1/0) -- PC1
+Internet/Cloud (eth1, NAT existente) -- MikroTik (ether3, WAN DHCP)
 ~~~
 
 El Cisco local es un 7200 (solicitado por el estudiante), en vez del 3725 de la
@@ -195,8 +212,12 @@ MD5 6b89d0d804e1f2bb5b8bda66b5692047. Las imágenes y discos no se publican.
 El 19 de octubre se calculó y aplicó Idle-PC 0x63d6d8d8 al Cisco local;
 GNS3 confirmó el equipo encendido con ese valor.
 El proyecto requiere esas imágenes y GNS3 VM instalada; el .gns3 no es una VM portable.
-La IP del laboratorio compartido 10.60.30.202 no se asigna automáticamente al router
-local por abrir el proyecto. Revisar conectividad antes de ejecutar.
+La administración local es 192.168.56.202/24 por ether1 y usuario lab-ssh.
+El adaptador Host-only de Windows debe estar en 192.168.56.0/24 y GNS3 VM encendida.
+La WAN recibe dirección de la red NAT existente 10.0.3.0/24 por DHCP en ether3.
+No se modificaron el firewall ni servicios de red del host GNS3 VM.
+10.60.30.202 es la dirección del entorno compartido del profesor; su inventario
+alternativo está en inventarios/compartido.ejemplo.yaml y requiere su acceso de clase.
 
 Apuntes rutas_estaticas.py es una demo adicional de rutas/NAT entre las LAN de PC1 y
 PC2. No sustituye R6. El Cisco compartido es de solo lectura según el enunciado;
@@ -208,9 +229,9 @@ La práctica Ansible PracticaClase5 es independiente de este Lab01.
 
 En Campus Virtual se envía SOLO https://github.com/Raul-QM/Lab01-Redes.
 El profesor revisa código, commits, logs y reporte real. No se requieren capturas ni PDF.
-**Es obligatorio invitar a randthat como colaborador y verificar que la invitación
-esté pendiente o aceptada**, incluso si el repo es público. Ese acceso aún no se ha
-confirmado. El número de lista y la invitación no pueden inferirse del usuario GitHub.
+El acceso obligatorio de **randthat** se verificó mediante la API de GitHub:
+colaborador con permiso **write**; no hay invitación pendiente para ese usuario.
+El número 24 se confirmó con la lista de la auditoría docente, no con el usuario GitHub.
 
 Antes de entregar, revisar docs/VALIDACION.md y que reporte_estado.json proceda de
 la ejecución real reciente. Para la defensa, explicar el diccionario DRIVERS,
