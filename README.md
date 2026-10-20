@@ -1,82 +1,184 @@
-# Laboratorio 1 - Redes Programables
+# Laboratorio 1 - Netmiko
 
-Avance de clase del 6 de octubre de 2026. Alcance de hoy: R1-R3.
-R4 (estado estructurado), R5 (JSON y tabla) y R6 (bridge lo-ssh-N,
-idempotencia y limpieza) quedan para la siguiente sesion.
+ITIEL-13, Redes Programables, UTN. Estudiante: Raúl.
+Repositorio: https://github.com/Raul-QM/Lab01-Redes
 
-## Avance implementado
+## Objetivo y alcance
 
-- R1: inventario externo con nombre, host, device_type, usuario y rol; validacion antes de conectar.
-- R2: clave desde LAB_PASS_<NOMBRE> o getpass; ninguna clave en los archivos.
-- R3: ConnectHandler dentro de with, timeout, errores de autenticacion y otros errores por equipo; logs por nombre.
-- El script solo abre y cierra sesiones SSH. No aplica configuraciones.
+Un solo script, lab1_inventario.py, lee el YAML, conecta por SSH con Netmiko,
+consulta el estado de cada equipo, genera JSON y asegura una loopback propia
+sin duplicados. --limpiar elimina exclusivamente los objetos de R6 del estudiante.
 
-Entorno propio env/ preparado con Netmiko 4.8.0 y PyYAML 6.0.3.
-Inventario validado y sintaxis Python comprobada. El host 10.60.30.202:22 responde.
-Prueba real con una clave intencionalmente incorrecta: error de autenticacion SSH,
-controlado por el script (codigo de salida 1).
-Prueba SSH exitosa realizada por el estudiante desde Debian/WSL con getpass:
-mt-lab | 10.60.30.202 | ok. La clave se ingreso localmente y no se publico.
-Pruebas simuladas adicionales verificaron cierre de sesiones y continuidad tras errores.
-No se incluye reporte_estado.json porque corresponde a R4-R5 y debe salir de una ejecucion real.
+El avance R1-R3 del 6 de octubre se conserva en los commits anteriores.
+R4-R6 están implementados. Las pruebas automáticas se ejecutaron el 19 de octubre
+(15 pruebas correctas). La prueba REAL completa de R4-R6 y su reporte final están
+pendientes de conexión al laboratorio, contraseña local y número de lista confirmado.
+No se presenta una simulación como ejecución real. Véase docs/VALIDACION.md.
 
-## Instalacion en Linux (equipo externo a GNS3)
+## Requisitos
 
-El enunciado pide Linux, VM o WSL2 para ejecutar el script.
-Debian en WSL esta disponible en este equipo. El entorno env-linux/ se creo
-y sus dependencias se instalaron; --validar paso desde Linux.
-Ubuntu no dispone de ensurepip.
+- Linux, VM o WSL2 fuera de GNS3, Python 3.10 o posterior, SSH y acceso al laboratorio.
+- Netmiko y PyYAML, declarados en requirements.txt.
+- MikroTik RouterOS v7, usuario del laboratorio y permisos sobre los objetos propios.
+- El Cisco es extra opcional. El driver y parser Cisco están implementados, pero el
+  extra solo puede darse por comprobado después de conectar realmente con el equipo.
+
+## Instalación
+
+Desde Linux, dentro de la carpeta del repositorio:
 
 ~~~bash
 python3 -m venv env-linux
 source env-linux/bin/activate
 python -m pip install -r requirements.txt
 python lab1_inventario.py --validar
+~~~
+
+En Windows con la instalación WSL Debian ya preparada para este laboratorio:
+
+~~~powershell
+cd "C:\Users\EliteBook\Desktop\Redes Programables\Semana 4\Lab01"
+wsl -d Debian -- env-linux/bin/python lab1_inventario.py --validar
+~~~
+
+El código también funciona en Windows con env/Scripts/python.exe, pero la ejecución
+solicitada por el enunciado es desde Linux/VM/WSL. La VM Debian de la práctica de
+Semana 5 es otra máquina; sus carpetas no se comparten automáticamente con WSL.
+Si se usa esa VM, clonar el repo y preparar su propio entorno.
+
+## Inventario y credenciales (R1-R2)
+
+inventario.yaml define nombre, host, device_type, usuario y rol por equipo.
+No hay IP de administración ni usuario de equipos incrustados en el script.
+puerto es opcional (22 por defecto).
+
+- estudiante: número de lista N CONFIRMADO por el profesor, entero entre 1 y 254.
+  El 7 del ejemplo docente no es una asignación para este estudiante.
+- nombre_estudiante: nombre usado en el comentario de R6.
+- rol: lectura nunca modifica; escritura permite únicamente el configurador R6.
+- device_type: mikrotik_routeros o cisco_ios.
+
+Con estudiante: null se permite --estado y --validar. Aplicar o limpiar R6 se
+rechaza ANTES de conectar para evitar crear objetos con un número inventado.
+
+La variable de clave se deriva del nombre: mt-lab -> LAB_PASS_MT_LAB;
+cisco-gns3 -> LAB_PASS_CISCO_GNS3. Si falta, getpass pide la clave sin mostrarla.
+Para una sesión de shell, se puede introducir sin escribirla en el historial:
+
+~~~bash
+read -r -s -p 'Clave MikroTik: ' LAB_PASS_MT_LAB; echo
+export LAB_PASS_MT_LAB
+~~~
+
+No escribir claves en YAML, código, archivos .env versionados ni mensajes de commit.
+Al terminar: unset LAB_PASS_MT_LAB. Para el uso habitual basta con getpass.
+
+## Conexiones y errores (R3)
+
+ConnectHandler se utiliza dentro de with. Se captura por equipo el timeout,
+el error de autenticación y cualquier otro Exception; el ciclo sigue con los demás.
+Los errores arbitrarios no se copian completos al JSON para evitar exponer secretos.
+Cada sesión se agrega a logs/<nombre>.log, sin grabar las escrituras de contraseña.
+Los originales quedan excluidos de Git: pueden contener avisos de accesos de terceros.
+
+El código de salida es 0 si todos los equipos terminan ok, 1 si un equipo falla y 2
+para errores de argumentos/inventario. El reporte incluye también los equipos fallidos.
+
+## Estado estructurado y reporte (R4-R5)
+
+~~~bash
+python lab1_inventario.py --estado
+~~~
+
+Consulta únicamente: no crea, borra ni cambia objetos del router.
+Los comandos están en DRIVERS, una sola entrada por device_type, junto con su parser.
+RouterOS utiliza identity, resource, interface, ip address e ip route print terse.
+La tabla muestra equipo, IP, estado, cantidad de interfaces y gateways activos.
+Una interfaz sin IP se incluye con direcciones: []. Si no hay ruta por defecto,
+rutas_por_defecto es una lista vacía y la tabla muestra '-'.
+
+reporte_estado.json es una lista, un diccionario por equipo:
+
+| Campo | Contenido |
+| --- | --- |
+| equipo, host, device_type, rol | Identificación desde el YAML |
+| fecha_hora | Fecha y hora UTC con zona horaria |
+| estado | ok o mensaje de error |
+| datos.nombre_equipo | Identidad del router |
+| datos.tiempo_encendido | Uptime interpretado, sin texto crudo completo |
+| datos.interfaces | Nombres, tipo/estado y direcciones por interfaz |
+| datos.rutas_por_defecto | Destino, gateway y estado activo |
+| configuracion | Cambios propios, estado anterior/posterior y verificación |
+
+--reporte ruta.json, --logs carpeta y --inventario ruta.yaml permiten elegir rutas.
+El archivo JSON se reemplaza de forma atómica para no dejarlo parcialmente escrito.
+No se incluye un reporte final simulado ni se debe copiar un ejemplo como evidencia.
+
+## Cambio idempotente y limpieza (R6)
+
+Después de confirmar N y el nombre en el inventario:
+
+~~~bash
 python lab1_inventario.py
+python lab1_inventario.py
+python lab1_inventario.py --limpiar
+python lab1_inventario.py --limpiar
 ~~~
 
-Si no define la variable de entorno, getpass pide la clave sin mostrarla.
-El equipo mt-lab usa LAB_PASS_MT_LAB. Obtenga la clave del profesor;
-no la guarde en archivos ni la escriba en Git. La conexion con
-10.60.30.202 y lab-ssh ya se comprobo. estudiante permanece null hasta
-confirmar el numero de lista; no se usa para esta primera etapa.
+La primera ejecución asegura el bridge sin puertos lo-ssh-N con 10.253.0.N/32.
+Bridge e IP llevan el mismo comentario: LAB01 N=N - Nombre.
+La segunda ejecución informa 'sin cambios' y no envía comandos add/set/remove.
+--limpiar elimina primero la IP propia y luego el bridge propio. Repetir la limpieza
+informa 'sin cambios'. --estado y --limpiar son mutuamente excluyentes.
 
-## Ejecutar la prueba exitosa en Linux/WSL
+Antes de cualquier escritura se comprueban nombre, IP y comentario exactos.
+Si el nombre ya es de otro tipo de interfaz, hay puertos en el bridge, una IP ajena,
+otra dirección o un comentario distinto, se registra un conflicto sin adoptar ni
+borrar esos objetos. Si una ejecución se interrumpió tras crear solo el bridge,
+la siguiente completa únicamente la dirección que falta.
 
-Desde PowerShell en la carpeta del laboratorio:
+Toda aplicación y limpieza verifica el resultado con comandos de lectura.
+Tras cambios se vuelve a recolectar R4 para que el JSON refleje el estado final.
+RouterOS guarda automáticamente estos objetos; no se requiere un 'save'.
+No se modifican rutas, NAT, DHCP, interfaces físicas ni configuración Cisco en R6.
 
-~~~powershell
-wsl -d Debian -- env-linux/bin/python lab1_inventario.py
+## Verificación real de entrega
+
+El auxiliar verificar_entrega.py utiliza el MISMO script principal, solicita las
+claves una sola vez y las mantiene solo durante el proceso. Ejecuta:
+
+1. Aplicar y verificar.
+2. Repetir y exigir cero cambios.
+3. Limpiar y verificar la ausencia de lo propio.
+4. Repetir limpieza y exigir cero cambios.
+5. Aplicar nuevamente y dejar reporte_estado.json con el estado final.
+
+~~~bash
+python verificar_entrega.py
 ~~~
 
-La clave se ingresa localmente cuando getpass la solicita.
+Se detiene ante errores. Guarda los reportes y tablas reales en
+ evidencias/ejecucion_real/ y el reporte final en la raíz. No ejecutarlo con un
+N inventado ni cambiar el nombre de propietario entre creación y limpieza.
+Esta secuencia comprueba R6; no simula un fallo de credenciales automáticamente.
+Para una prueba real de error, usar una clave incorrecta solo en una sesión de prueba
+con --estado y --reporte evidencias/error_autenticacion.json. No sobrescribir el
+reporte final correcto con la prueba de error.
 
-## Ejecutar la prueba exitosa en Windows
+## Pruebas automáticas sin red
 
-Desde la carpeta del laboratorio, en PowerShell:
-
-~~~powershell
-.\env\Scripts\python.exe .\lab1_inventario.py
+~~~bash
+python -m unittest discover -s tests -v
 ~~~
 
-Ingrese la clave cuando getpass la solicite; no se muestra ni se guarda en Git.
-El resultado esperado es mt-lab | 10.60.30.202 | ok.
-La comprobacion ya se realizo exitosamente desde Debian/WSL.
+Fixtures explícitos comprueban parsers RouterOS/Cisco, rutas ausentes, cadenas con
+espacios, flags, validación de inventario, cierre de sesiones, continuación después
+de errores, idempotencia y rechazo de objetos ajenos/puertos ajenos. Son pruebas
+simuladas y NO acreditan conectividad ni permisos reales.
 
-## Prueba de errores en clase
+## Topología GNS3 y guía de rutas
 
-Ejecutar con una clave incorrecta debe mostrar error: autenticacion SSH.
-Con un host inaccesible debe mostrar error: tiempo de espera SSH.
-Para demostrar continuidad, usar un inventario temporal con dos equipos autorizados,
-el primero inaccesible y el segundo real; pasar --inventario ruta.yaml.
-El script debe intentar ambos y devolver codigo 1 si hubo algun error.
-Las sesiones generan logs/<nombre>.log. Los originales se ignoran en Git.
-Se publico logs/mt-lab.sanitizado.log, copia del session_log real sin los avisos
-de accesos de otros estudiantes ni lineas en blanco repetidas.
-
-## Topologia GNS3
-
-El proyecto Lab01.gns3 contiene:
+Lab01.gns3 contiene la topología guardada:
 
 ~~~text
 Internet (eth1) -- SW1 (Ethernet0)
@@ -86,41 +188,36 @@ SW1 (Ethernet2) -- Cisco (FastEthernet0/0)
 Cisco (FastEthernet1/0) -- PC1
 ~~~
 
-Cisco: 7200 NPE-400, 512 MB, C7200-IO-FE + PA-FE-TX, ejecutado en GNS3 VM.
-Imagen importada desde el archivo proporcionado por el estudiante:
-c7200-adventerprisek9-mz.124-24.T5.image.
-MD5 verificado: 6b89d0d804e1f2bb5b8bda66b5692047.
-GNS3 confirmo el arranque del Cisco y del MikroTik; los enlaces estan guardados.
-Consola MikroTik accesible en 192.168.56.107:5002; RouterOS 7.20.8 solicita login.
-Autenticacion SSH al host del inventario comprobada desde Debian/WSL.
-No se ha confirmado que ese host corresponda al router local ni la conectividad entre PCs.
-El enunciado usa Cisco 3725, pero se agrego 7200 por solicitud del estudiante.
-El extra multivendor no esta habilitado. La LAN del MikroTik usa ether2 en este
-proyecto; ether8 en los apuntes pertenece a otra cantidad de adaptadores.
-No se configuraron rutas estaticas ni excepciones NAT de los apuntes: son una
-referencia adicional y no sustituyen R6 del laboratorio.
+El Cisco local es un 7200 (solicitado por el estudiante), en vez del 3725 de la
+imagen docente. Tiene NPE-400, 512 MB, C7200-IO-FE y PA-FE-TX, en GNS3 VM.
+Imagen c7200-adventerprisek9-mz.124-24.T5.image;
+MD5 6b89d0d804e1f2bb5b8bda66b5692047. Las imágenes y discos no se publican.
+El proyecto requiere esas imágenes y GNS3 VM instalada; el .gns3 no es una VM portable.
+La IP del laboratorio compartido 10.60.30.202 no se asigna automáticamente al router
+local por abrir el proyecto. Revisar conectividad antes de ejecutar.
 
-Las imagenes IOS y discos de maquinas no se suben al repositorio.
-El archivo .gns3 describe la topologia; requiere GNS3 VM y las imagenes instaladas.
+Apuntes rutas_estaticas.py es una demo adicional de rutas/NAT entre las LAN de PC1 y
+PC2. No sustituye R6. El Cisco compartido es de solo lectura según el enunciado;
+no ejecutar comandos de escritura de esa demo contra él. La conexión entre ambas
+PC no se da por comprobada a partir de un SSH exitoso al laboratorio compartido.
+La práctica Ansible PracticaClase5 es independiente de este Lab01.
 
-## Pendiente para continuar otro dia
+## Entrega y defensa
 
-1. Confirmar numero de lista y nombre antes de implementar R6.
-2. Completar R4 y R5: parsers de los cuatro datos, comandos por fabricante, JSON y tabla.
-3. Completar R6: consultar, crear solo lo propio, verificar, segunda ejecucion sin cambios y --limpiar.
+En Campus Virtual se envía SOLO https://github.com/Raul-QM/Lab01-Redes.
+El profesor revisa código, commits, logs y reporte real. No se requieren capturas ni PDF.
+**Es obligatorio invitar a randthat como colaborador y verificar que la invitación
+esté pendiente o aceptada**, incluso si el repo es público. Ese acceso aún no se ha
+confirmado. El número de lista y la invitación no pueden inferirse del usuario GitHub.
 
-El avance de clase solicitado por el enunciado es R1-R3 funcionando con push.
-La conexion SSH exitosa y el error real de autenticacion ya se verificaron.
-La continuidad tras errores adicionales se comprobo mediante sesiones simuladas.
-El repositorio indicado es https://github.com/Raul-QM/Lab01-Redes.
-El avance R1-R3 y la topologia se publicaron en la rama main mediante Git local.
-Pendiente obligatorio antes de la entrega: invitar a randthat como colaborador
-y comprobar que la invitacion figure pendiente o aceptada. No se ha confirmado
-ese acceso. En Campus Virtual se entrega solo el enlace al repositorio.
+Antes de entregar, revisar docs/VALIDACION.md y que reporte_estado.json proceda de
+la ejecución real reciente. Para la defensa, explicar el diccionario DRIVERS,
+los parsers, el bloque with, el ciclo por equipo, la comparación antes de crear y
+por qué --limpiar exige también el comentario de propietario.
 
 ## Uso de IA
 
-Se uso Codex para revisar el enunciado y los apuntes, preparar R1-R3,
-validar el inventario, conectar la topologia mediante la API local de GNS3 e
-importar la imagen Cisco proporcionada. El estudiante debe revisar y poder
-explicar el codigo en la defensa. No se genero evidencia de conexiones inexistentes.
+Se utilizó Codex para revisar el enunciado y los apuntes, preparar R1-R6 y pruebas,
+conectar el proyecto GNS3 e importar la imagen Cisco proporcionada por el estudiante.
+El estudiante debe revisar, comprender y poder explicar el código en la defensa.
+La evidencia distingue siempre pruebas simuladas de las ejecuciones reales.
