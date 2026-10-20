@@ -16,12 +16,13 @@ import lab1_inventario as lab
 
 
 def ejecutar(args, ruta, descripcion, sin_cambios=False, limpio=False):
+    print(f"\n--- {descripcion} ---", flush=True)
     salida = io.StringIO()
     with redirect_stdout(salida):
         rc = lab.main(["--inventario", str(args.inventario), "--reporte", str(ruta)]
                       + (["--limpiar"] if limpio else []))
     texto = salida.getvalue()
-    print(f"\n--- {descripcion} ---\n{texto}", end="")
+    print(texto, end="", flush=True)
     ruta.with_suffix(".txt").write_text(texto, encoding="utf-8")
     if rc:
         raise RuntimeError(f"Fallo en {descripcion}; revise {ruta.name}. No se continua.")

@@ -7,6 +7,7 @@ __pycache__/
 logs/*
 !logs/.gitkeep
 tmp/
+.local/
 project-files/
 *.qcow2
 *.img

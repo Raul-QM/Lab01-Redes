@@ -73,6 +73,12 @@ class RouterSimulado:
 
 
 class Parsers(unittest.TestCase):
+    def test_comentario_real_sin_comillas_no_se_confunde_con_flags(self):
+        fila = lab.registros_terse('0 R comment=LAB01 N=24 - Ral Quesada Morera name=lo-ssh-24 protocol-mode=none')[0]
+        self.assertEqual(fila['comment'], 'LAB01 N=24 - Ral Quesada Morera')
+        self.assertEqual(fila['flags'], 'R')
+        self.assertEqual(fila['name'], 'lo-ssh-24')
+
     def test_routeros_estructurado_y_flags(self):
         datos = lab.parsear_routeros(ROS)
         self.assertEqual(datos['nombre_equipo'], 'mt-lab1')
@@ -89,6 +95,16 @@ class Parsers(unittest.TestCase):
         datos = lab.parsear_routeros({**ROS, 'direcciones': '', 'ruta_defecto': ''})
         self.assertEqual(datos['rutas_por_defecto'], [])
         self.assertTrue(all(i['direcciones'] == [] for i in datos['interfaces']))
+
+    def test_ruta_dinamica_routeros_sin_numero_de_fila(self):
+        datos = lab.parsear_routeros({**ROS, 'ruta_defecto': '  DAd+ dst-address=0.0.0.0/0 gateway=10.0.3.2 immediate-gw=10.0.3.2%ether3 distance=1'})
+        self.assertTrue(datos['rutas_por_defecto'][0]['activa'])
+        self.assertEqual(datos['rutas_por_defecto'][0]['gateway'], '10.0.3.2')
+
+    def test_nombre_unicode_y_escape_hex_routeros(self):
+        filas = lab.registros_terse('0 name=lo-ssh-24 comment="LAB01 N=24 - Ra\\C3\\BAl Quesada Morera"')
+        self.assertEqual(filas[0]['comment'], 'LAB01 N=24 - Raúl Quesada Morera')
+        self.assertEqual(lab.citar_routeros('Raúl'), '"Ra\\C3\\BAl"')
 
     def test_rechazar_respuesta_incompleta(self):
         with self.assertRaises(lab.ErrorEquipo):

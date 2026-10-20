@@ -1,0 +1,9 @@
+# Solo para el laboratorio compartido del profesor, no para tu GNS3 local.
+estudiante: 24
+nombre_estudiante: Raul Quesada Morera
+equipos:
+  - nombre: mt-lab
+    host: 10.60.30.202
+    device_type: mikrotik_routeros
+    usuario: lab-ssh
+    rol: escritura

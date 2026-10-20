@@ -56,6 +56,8 @@ def leer_inventario(ruta):
             raise ValueError("No se admiten contrasenas en el inventario.")
         if "puerto" in equipo and (type(equipo["puerto"]) is not int or not 1 <= equipo["puerto"] <= 65535):
             raise ValueError("puerto debe ser un entero entre 1 y 65535.")
+        if "conexion_host" in equipo and (not isinstance(equipo["conexion_host"], str) or not equipo["conexion_host"].strip()):
+            raise ValueError("conexion_host debe ser una direccion de conexion no vacia.")
     return inventario
 
 
@@ -81,17 +83,26 @@ def registros_terse(texto):
     """Interpretar filas RouterOS, incluidas propiedades entre comillas."""
     registros = []
     for linea in texto.splitlines():
-        if not re.match(r"^\s*\d+\s", linea):
+        if "=" not in linea or not re.match(r"^\s*(?:\d+\s|[A-Za-z+*]+\s+\w[\w-]*=|[\w.-]+=)", linea):
             continue
         try:
+            # shlex no debe eliminar los escapes hexadecimales de RouterOS.
+            linea = re.sub(r"\\([0-9A-Fa-f]{2})", r"\\\\\1", linea)
             tokens = shlex.split(linea, posix=True)
         except ValueError as error:
             raise ErrorEquipo("No se pudo interpretar una fila RouterOS terse.") from error
-        fila = {"indice": tokens[0], "flags": ""}
-        for token in tokens[1:]:
-            if "=" in token:
+        indice = tokens.pop(0) if tokens[0].isdigit() else None
+        fila = {"indice": indice, "flags": ""}
+        ultima = None
+        for token in tokens:
+            if re.match(r"^[a-z][a-z0-9-]*=", token):
                 k, valor = token.split("=", 1)
-                fila[k] = valor
+                fila[k] = re.sub(r"(?:\\[0-9A-Fa-f]{2})+",
+                    lambda m: bytes.fromhex(m[0].replace("\\", "")).decode("utf-8", errors="replace"), valor)
+                ultima = k
+            elif ultima is not None:
+                # RouterOS real imprime comentarios con espacios SIN comillas.
+                fila[ultima] += " " + token
             elif re.fullmatch(r"[A-Za-z+*]+", token):
                 fila["flags"] += token
         registros.append(fila)
@@ -155,7 +166,9 @@ def enviar(conexion, comando):
 
 
 def citar_routeros(texto):
-    return '"' + texto.replace("\\", "\\\\").replace('"', '\\"').replace("$", "\\$") + '"'
+    escapado = texto.replace("\\", "\\\\").replace('"', '\\"').replace("$", "\\$")
+    return '"' + ''.join(c if ord(c) < 128 else ''.join(f"\\{b:02X}" for b in c.encode("utf-8"))
+                         for c in escapado) + '"'
 
 
 def inspeccionar_loopback(conexion, propietario):
@@ -233,9 +246,9 @@ def procesar_equipo(equipo, inventario, modo, carpeta_logs):
         "estado": "ok", "datos": None, "configuracion": None}
     try:
         driver = DRIVERS[equipo["device_type"]]
-        with ConnectHandler(host=equipo["host"], port=equipo.get("puerto", 22),
+        with ConnectHandler(host=equipo.get("conexion_host", equipo["host"]), port=equipo.get("puerto", 22),
             device_type=equipo["device_type"], username=equipo["usuario"], password=clave(equipo),
-            conn_timeout=10, auth_timeout=15, banner_timeout=15,
+            conn_timeout=30, auth_timeout=60, banner_timeout=60,
             session_log=str(carpeta_logs / f"{equipo['nombre']}.log"),
             session_log_record_writes=False, session_log_file_mode="append") as conexion:
             salidas = {dato: enviar(conexion, comando) for dato, comando in driver["comandos"].items()}
