@@ -23,17 +23,23 @@ def main():
     ruta = BASE / ".local" / "clave_lab.dpapi"
     if not ruta.exists():
         raise SystemExit("No hay clave local cifrada. Usar lab1_inventario.py con getpass desde Linux.")
-    datos = ruta.read_bytes()
-    buffer = ctypes.create_string_buffer(datos)
-    entrada = Blob(len(datos), ctypes.cast(buffer, ctypes.POINTER(ctypes.c_byte)))
-    salida = Blob()
-    if not ctypes.windll.crypt32.CryptUnprotectData(ctypes.byref(entrada), None, None, None,
-                                                  None, 0, ctypes.byref(salida)):
-        raise ctypes.WinError()
-    try:
-        clave = ctypes.string_at(salida.pbData, salida.cbData).decode()
-    finally:
-        ctypes.windll.kernel32.LocalFree(salida.pbData)
+    credenciales = {}
+    for variable, archivo in (("LAB_PASS_MT_LAB", "clave_lab.dpapi"),
+                              ("LAB_PASS_CISCO_GNS3", "clave_cisco.dpapi")):
+        ruta = BASE / ".local" / archivo
+        if not ruta.exists():
+            continue
+        datos = ruta.read_bytes()
+        buffer = ctypes.create_string_buffer(datos)
+        entrada = Blob(len(datos), ctypes.cast(buffer, ctypes.POINTER(ctypes.c_byte)))
+        salida = Blob()
+        if not ctypes.windll.crypt32.CryptUnprotectData(ctypes.byref(entrada), None, None, None,
+                                                      None, 0, ctypes.byref(salida)):
+            raise ctypes.WinError()
+        try:
+            credenciales[variable] = ctypes.string_at(salida.pbData, salida.cbData).decode()
+        finally:
+            ctypes.windll.kernel32.LocalFree(salida.pbData)
     argumentos = sys.argv[1:] or ["lab1_inventario.py"]
     programa = (
         "import json,os,runpy,sys; "
@@ -42,7 +48,7 @@ def main():
     )
     resultado = subprocess.run(
         ["wsl", "-d", "Debian", "--", "env-linux/bin/python", "-c", programa, *argumentos],
-        cwd=BASE, input=json.dumps({"LAB_PASS_MT_LAB": clave}) + "\n", text=True,
+        cwd=BASE, input=json.dumps(credenciales) + "\n", text=True,
     )
     return resultado.returncode
 

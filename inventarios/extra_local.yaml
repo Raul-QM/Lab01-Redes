@@ -1,0 +1,15 @@
+# ESCRITURA SOLO EN ROUTERS PRIVADOS PROPIOS. Nunca usar en el laboratorio compartido.
+laboratorio_privado: true
+estudiante: 24
+nombre_estudiante: Raul Quesada Morera
+equipos:
+  - nombre: mt-lab
+    host: 192.168.56.202
+    device_type: mikrotik_routeros
+    usuario: lab-ssh
+    rol: escritura
+  - nombre: cisco-gns3
+    host: 192.168.56.203
+    device_type: cisco_ios
+    usuario: lab-ssh
+    rol: escritura

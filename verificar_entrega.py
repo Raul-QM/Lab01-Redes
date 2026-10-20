@@ -58,8 +58,11 @@ def main():
         ejecutar(args, carpeta / "04_limpiar_repetido.json", "Repetir limpieza: sin cambios",
                  sin_cambios=True, limpio=True)
         ejecutar(args, lab.BASE / "reporte_estado.json", "Estado final: R6 aplicado")
+        (carpeta / "05_estado_final.json").write_bytes((lab.BASE / "reporte_estado.json").read_bytes())
+        (carpeta / "05_estado_final.txt").write_bytes((lab.BASE / "reporte_estado.txt").read_bytes())
         resumen = {"fecha_hora": datetime.now(timezone.utc).isoformat(),
                    "fuente": "SSH Netmiko real; no simulada", "resultado": "ok",
+                   "archivo_reporte_final": "05_estado_final.json",
                    "sha256_reporte_final": hashlib.sha256((lab.BASE / "reporte_estado.json").read_bytes()).hexdigest(),
                    "pasos": ["aplicar y verificar", "repetir sin cambios", "limpiar y verificar",
                              "repetir limpieza sin cambios", "aplicar y verificar estado final"]}

@@ -114,11 +114,19 @@ class Parsers(unittest.TestCase):
 
     def test_cisco_lectura(self):
         datos = lab.parsear_cisco({'identidad': 'hostname R1', 'recursos': 'R1 uptime is 2 days, 5 hours',
-            'interfaces': 'Interface IP-Address OK? Method Status Protocol\nFastEthernet0/0 10.60.30.203 YES manual up up\nFastEthernet1/0 unassigned YES unset administratively down down',
+            'interfaces': 'Interface IP-Address OK? Method Status Protocol\nFastEthernet0/0 10.60.30.203 YES manual up up\nFastEthernet1/0 unassigned YES unset administratively down down\nNVI0 unassigned NO unset up up',
             'ruta_defecto': 'Routing entry for 0.0.0.0/0\n  * 10.60.30.1, from 0.0.0.0, 00:10:00'})
         self.assertEqual(datos['nombre_equipo'], 'R1')
-        self.assertEqual(len(datos['interfaces']), 2)
+        self.assertEqual(len(datos['interfaces']), 3)
+        self.assertEqual(datos['interfaces'][2]['direcciones'], [])
         self.assertEqual(datos['rutas_por_defecto'][0]['gateway'], '10.60.30.1')
+
+    def test_gateway_estatico_real_ios_sin_from(self):
+        datos = lab.parsear_cisco({'identidad': 'hostname cisco-lab-local',
+            'recursos': 'cisco-lab-local uptime is 16 minutes',
+            'interfaces': 'FastEthernet0/0 192.168.56.203 YES manual up up',
+            'ruta_defecto': 'Routing entry for 0.0.0.0/0, supernet\n  Known via "static", distance 1, metric 0, candidate default path\n  Routing Descriptor Blocks:\n  * 192.168.56.202\n      Route metric is 0, traffic share count is 1'})
+        self.assertEqual(datos['rutas_por_defecto'][0]['gateway'], '192.168.56.202')
 
 
 class Configuracion(unittest.TestCase):

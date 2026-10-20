@@ -8,3 +8,8 @@ equipos:
     device_type: mikrotik_routeros
     usuario: lab-ssh
     rol: escritura
+  - nombre: cisco-gns3
+    host: 192.168.56.203
+    device_type: cisco_ios
+    usuario: lab-ssh
+    rol: lectura

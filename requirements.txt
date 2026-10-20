@@ -1,2 +1,4 @@
 netmiko>=4.4,<5
 PyYAML>=6,<7
+# IOS 12.4 del Cisco 7200 usa SSH legado; Paramiko 5 elimino su KEX SHA-1.
+paramiko>=4,<5

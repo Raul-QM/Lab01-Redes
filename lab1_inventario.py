@@ -148,11 +148,12 @@ def parsear_cisco(salidas):
         raise ErrorEquipo("Faltan hostname o uptime en la respuesta Cisco IOS.")
     interfaces = []
     for linea in salidas["interfaces"].splitlines():
-        m = re.match(r"^(\S+)\s+(unassigned|\d+\.\d+\.\d+\.\d+)\s+YES\s+\S+\s+(.+?)\s+(up|down)\s*$", linea)
+        m = re.match(r"^(\S+)\s+(unassigned|\d+\.\d+\.\d+\.\d+)\s+(?:YES|NO)\s+\S+\s+(.+?)\s+(up|down)\s*$", linea)
         if m:
             interfaces.append({"nombre": m[1], "estado": m[3], "protocolo": m[4],
                 "direcciones": [] if m[2] == "unassigned" else [{"direccion": m[2]}]})
-    gateways = re.findall(r"(?:\*\s*)?(\d+\.\d+\.\d+\.\d+),\s+from\s+", salidas["ruta_defecto"])
+    gateways = re.findall(r"^\s*(?:\*\s*)?(\d+\.\d+\.\d+\.\d+)(?:,\s+from\s+|\s*$)",
+                          salidas["ruta_defecto"], re.M)
     rutas = [{"destino": "0.0.0.0/0", "gateway": g, "activa": True} for g in dict.fromkeys(gateways)]
     return {"nombre_equipo": nombre[1], "tiempo_encendido": uptime[1].strip(),
             "interfaces": interfaces, "rutas_por_defecto": rutas}
@@ -290,7 +291,7 @@ def imprimir_tabla(resultados):
             str(len(datos["interfaces"])) if r["datos"] else "-", gateways))
     anchos = [max(len(f[i]) for f in filas) for i in range(5)]
     for n, fila in enumerate(filas):
-        print(" | ".join(valor.ljust(anchos[i]) for i, valor in enumerate(fila)))
+        print(" | ".join(valor.ljust(anchos[i]) for i, valor in enumerate(fila)).rstrip())
         if n == 0:
             print("-+-".join("-" * ancho for ancho in anchos))
     for r in resultados:
