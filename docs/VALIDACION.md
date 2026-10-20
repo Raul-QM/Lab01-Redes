@@ -1,64 +1,80 @@
 ﻿# Verificación de entrega — 19 de octubre de 2026, Costa Rica
 
-Estudiante: Raúl Quesada Morera, N=24, confirmado con la lista de la auditoría
-docente. Se ejecutó desde Debian/WSL, fuera de GNS3, contra el MikroTik privado
-192.168.56.202, identidad mt-lab-local, RouterOS 7.20.8.
+Estudiante: Raúl Quesada Morera, N=24, confirmado con la auditoría docente.
+Cliente Netmiko: Debian/WSL, fuera de GNS3. Routers privados: MikroTik RouterOS
+7.20.8 (192.168.56.202) y Cisco 7200 IOS 12.4(24)T5 (192.168.56.203).
 Los JSON usan UTC: 20 de octubre de 2026.
 
 | Requisito | Evidencia y resultado |
 | --- | --- |
-| R1 | inventario.yaml válido: campos requeridos, N=24 y roles |
-| R2 | Credencial de entorno; getpass como alternativa; no hay claves versionadas |
-| R3 | ConnectHandler con with, logs; prueba real de autenticación fallida seguida de equipo exitoso en evidencias/error_y_continuidad.json |
-| R4 | SSH real: identidad, uptime, cinco interfaces con sus IP y gateway 10.0.3.2, sin texto crudo en datos |
-| R5 | reporte_estado.json final: lista de diccionarios, fecha UTC y estado ok; tablas en cada etapa |
-| R6 | Aplicación, repetición sin cambios, limpieza, limpieza repetida sin cambios y recreación verificadas por SSH |
-| Logs | logs/mt-lab.sanitizado.log conserva cinco sesiones reales propias; se quitan líneas vacías/prompts repetidos y se excluyen avisos de terceros |
-| Documentación | README con instalación, ejecución, inventario, seguridad, alcance y declaración de IA |
-| Colaborador | API de GitHub: randthat tiene permission=write y role_name=write; sin invitación pendiente |
+| R1 | YAML válido, N=24; MikroTik escritura y Cisco lectura |
+| R2 | LAB_PASS_* o getpass; claves privadas excluidas de Git |
+| R3 | with, errores por equipo y logs; fallo real de autenticación seguido de éxito en evidencias/error_y_continuidad.json |
+| R4 | SSH real en ambos fabricantes: identidad, uptime, interfaces/IP y gateway; incluye NVI0 sin IP del Cisco |
+| R5 | reporte_estado.json: dos equipos con estado ok, fecha UTC, datos estructurados y tablas reales |
+| R6 | Crear/verificar, repetir sin cambios, limpiar/verificar, repetir limpieza sin cambios y recrear lo-ssh-24 / 10.253.0.24/32 |
+| Logs | Sesiones reales de ambos fabricantes en logs/*.sanitizado.log; claves y avisos de terceros excluidos |
+| Documentación | README, instalación, comandos, configuración base y declaración de IA |
+| Colaborador | randthat verificado mediante API de GitHub con permiso write |
+| Extra Cisco | Consulta SSH real con rol lectura en el inventario principal |
+| Extra rutas/NAT | Aplicación, repetición, limpieza y recreación en ambos routers privados; ocho pings desde las PC con 3/3 respuestas |
 
-## Ejecución real
+## Evidencia principal actual
 
-Carpeta: [20261020T043406281096Z](../evidencias/ejecucion_real/20261020T043406281096Z/).
+Carpeta: [20261020T051303131017Z](../evidencias/ejecucion_real/20261020T051303131017Z/).
 
-1. 01_aplicar.json: objetos ya presentes, verificados, sin cambios.
+1. 01_aplicar.json: objetos propios presentes y verificados, sin cambios.
 2. 02_repetir.json: sin cambios.
-3. 03_limpiar.json: dirección y bridge propios eliminados; cuatro interfaces restantes.
+3. 03_limpiar.json: dirección y bridge propios eliminados; Cisco solo lectura.
 4. 04_limpiar_repetido.json: sin cambios, objetos propios ausentes.
-5. reporte_estado.json en la raíz: bridge y dirección creados nuevamente;
-   lo-ssh-24, 10.253.0.24/32 y comentario LAB01 N=24 - Raul Quesada Morera.
+5. 05_estado_final.json: bridge y dirección recreados y verificados; copia del
+   reporte_estado.json de la raíz. Comentario: LAB01 N=24 - Raul Quesada Morera.
 
-Todas las etapas terminaron con estado ok. verificacion.json conserva el SHA-256
-del reporte final y la secuencia realizada. Los .txt son la salida real de la tabla
-del script, no una captura reconstruida. La prueba R3 usa dos entradas del mismo
-router: la primera con clave deliberadamente incorrecta y la segunda con clave válida;
-el código de salida 1 de esa prueba es el esperado. No se publican sus claves.
+verificacion.json conserva el SHA-256 de 05_estado_final.json y la secuencia
+realizada. Los .txt contienen la tabla real del script. La ejecución anterior,
+solo con MikroTik, se conserva en 20261020T043406281096Z con su reporte final
+archivado; no se mezcla con la evidencia multivendor actual.
 
-Durante el diagnóstico hubo un timeout por carga de la VM y una incompatibilidad
-de comentarios con tildes en la consola. Se usó el nombre ASCII en el comentario,
-se corrigió el parser para comentarios sin comillas y rutas dinámicas sin índice,
-y se ampliaron los tiempos de conexión. La secuencia de entrega indicada arriba
-se completó después de esos ajustes. No hay reintentos que oculten errores.
-El Cisco opcional quedó detenido para liberar CPU durante las pruebas.
+La prueba R3 usa dos entradas del mismo MikroTik: una clave deliberadamente
+incorrecta y otra válida. Su salida 1 es la esperada y el segundo equipo terminó
+ok. No se publican las claves ni se reemplaza el reporte final correcto con ese error.
 
-## Pruebas automáticas
+## Extras verificados
 
-`python -m unittest discover -s tests -v`: **18 pruebas correctas en Windows y 18
-en Debian/WSL**. Cubren parsers, flags, interfaces sin IP, rutas dinámicas sin índice,
-comentarios reales sin comillas, validación, cierre de sesión, continuidad tras errores,
-idempotencia, recuperación parcial y rechazo de objetos ajenos o bridges con puertos.
-Estas pruebas usan fixtures; la evidencia SSH real está separada.
+Ver [EXTRAS.md](EXTRAS.md), configuraciones/ y evidencias/extra_rutas/.
+Se usaron las LAN de los apuntes: PC1 172.16.10.11/24 y PC2 172.16.20.100/24.
+El tránsito privado es 192.168.56.0/24; Cisco sale a Internet por MikroTik y este
+por la red NAT ya existente de VirtualBox en ether3. El script adicional solo
+admite el inventario marcado como privado y permisos de escritura explícitos.
+El Cisco compartido del profesor no se modifica.
 
-## Alcance y reproducción
+La aplicación creó rutas y excepciones NAT. Repetir produjo cero cambios; limpiar
+restauró la asociación NAT base y eliminó solamente los objetos de la demo;
+repetir la limpieza produjo cero cambios. Se dejó la demo aplicada nuevamente.
+Desde ambas PC se probó gateway, la otra PC, 1.1.1.1 y google.com: 3/3 respuestas
+en cada prueba. Los archivos pings_aplicados.* y pings_finales.* contienen las
+salidas reales. Cisco y MikroTik quedaron encendidos.
 
-El proyecto GNS3 incluye Cisco 7200, MikroTik, switch, Cloud, PC1 y PC2. El cliente
-Netmiko utiliza la administración Host-only; la WAN MikroTik usa el NAT existente.
-El Cisco multivendor y la demo de rutas/NAT entre PC1 y PC2 de los apuntes son extras:
-no se presentan como verificados. No forman parte de R1-R6 del enunciado.
-La práctica Ansible de Semana 5 es independiente.
+## Pruebas automáticas y compatibilidad
 
-El .gns3 describe nodos y enlaces; no incluye imágenes propietarias ni los discos
-de las VM. La configuración y credenciales del router privado residen en el GNS3
-local. Para reproducir en otra máquina se requieren las imágenes, configurar SSH y
-ajustar el inventario a un equipo autorizado. En esta laptop puede usarse el auxiliar
-ejecutar_local_windows.py con la clave DPAPI excluida de Git.
+`python -m unittest discover -s tests -v`: **24 pruebas correctas en Windows y 24
+en Debian/WSL**. Cubren R1-R6, parsers RouterOS/Cisco con formatos observados en los
+routers, continuidad de errores, idempotencia y protección de objetos ajenos.
+También comprueban el rechazo de ACL/NAT/rutas diferentes en el extra privado y
+que repetir aplicación o limpieza no envíe escrituras.
+Las pruebas con fixtures están separadas de la evidencia SSH/VPCS real.
+
+Se usó el nombre ASCII en el comentario por compatibilidad con la consola RouterOS.
+El parser reconoce comentarios sin comillas, rutas RouterOS sin índice e interfaces
+Cisco NVI0 con OK?=NO. El gateway estático Cisco se interpreta aunque no contenga
+la expresión `from`. Se ampliaron los tiempos de conexión por la carga de la VM.
+El entorno virtual utiliza Paramiko 4 para el SSH legado de IOS 12.4; los paquetes
+del sistema no se modificaron. La comprobación real se hizo después de estos ajustes.
+
+## Reproducción
+
+El .gns3 incluye nodos y enlaces, sin imágenes propietarias ni discos de VM.
+En otra máquina se requieren las imágenes, aplicar la base de configuraciones/,
+crear credenciales privadas y ajustar los inventarios. El auxiliar Windows usa
+claves cifradas con DPAPI en .local/, excluidas de Git. La práctica Ansible de
+Semana 5 es independiente de este laboratorio.

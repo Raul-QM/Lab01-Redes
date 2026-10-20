@@ -15,15 +15,19 @@ del profesor. La ejecución usa un MikroTik privado en GNS3 y Debian/WSL como
 cliente externo; véanse los resultados y limitaciones en docs/VALIDACION.md.
 La verificación SSH completa de R4-R6 terminó correctamente el 19 de octubre de
 2026 (Costa Rica; los JSON registran 20 de octubre en UTC). El reporte final y las
-cinco etapas reales están versionados. Pasan 18 pruebas automáticas en Windows y WSL.
+cinco etapas reales están versionados. También se verificaron el Cisco por SSH y
+las rutas/NAT entre PC1 y PC2, con Internet y DNS desde ambas PC.
+Pasan 24 pruebas automáticas en Windows y WSL.
 
 ## Requisitos
 
 - Linux, VM o WSL2 fuera de GNS3, Python 3.10 o posterior, SSH y acceso al laboratorio.
-- Netmiko y PyYAML, declarados en requirements.txt.
+- Netmiko, PyYAML y Paramiko, declarados en requirements.txt.
 - MikroTik RouterOS v7, usuario del laboratorio y permisos sobre los objetos propios.
-- El Cisco es extra opcional. El driver y parser Cisco están implementados, pero el
-  extra solo puede darse por comprobado después de conectar realmente con el equipo.
+- Cisco es extra opcional, incluido y verificado en este proyecto privado.
+
+Se usa `paramiko>=4,<5` dentro del entorno virtual para el IOS 12.4 del Cisco 7200:
+[Paramiko 5 retiró los algoritmos SHA-1 que usa ese IOS](https://www.paramiko.org/changelog.html).
 
 ## Instalación
 
@@ -50,9 +54,10 @@ python ejecutar_local_windows.py lab1_inventario.py --estado
 python ejecutar_local_windows.py verificar_entrega.py
 ~~~
 
-Este auxiliar ejecuta Python en Debian/WSL. La clave cifrada está únicamente en
-.local/clave_lab.dpapi, excluida de Git, vinculada a la cuenta Windows que la creó.
-No se muestra ni se pasa como argumento. En otro equipo se usa getpass o una variable
+Este auxiliar ejecuta Python en Debian/WSL. Las claves cifradas están únicamente en
+.local/clave_lab.dpapi y .local/clave_cisco.dpapi, excluidas de Git y vinculadas a
+la cuenta Windows que las creó. No se muestran ni se pasan como argumento.
+En otro equipo se usa getpass o una variable
 de entorno con una credencial autorizada; el repo no distribuye contraseñas.
 
 El código también funciona en Windows con env/Scripts/python.exe, pero la ejecución
@@ -219,11 +224,13 @@ No se modificaron el firewall ni servicios de red del host GNS3 VM.
 10.60.30.202 es la dirección del entorno compartido del profesor; su inventario
 alternativo está en inventarios/compartido.ejemplo.yaml y requiere su acceso de clase.
 
-Apuntes rutas_estaticas.py es una demo adicional de rutas/NAT entre las LAN de PC1 y
-PC2. No sustituye R6. El Cisco compartido es de solo lectura según el enunciado;
-no ejecutar comandos de escritura de esa demo contra él. La conexión entre ambas
-PC no se da por comprobada a partir de un SSH exitoso al laboratorio compartido.
-La práctica Ansible PracticaClase5 es independiente de este Lab01.
+La demo adicional de los apuntes está implementada en extras/rutas_estaticas.py.
+PC1 (172.16.10.11) y PC2 (172.16.20.100) se comunicaron en ambos sentidos y ambas
+respondieron a Internet y google.com. Las ocho pruebas obtuvieron 3/3 respuestas.
+Ver [configuración y comandos del extra](docs/EXTRAS.md) y evidencias/extra_rutas/.
+El Cisco principal se consulta con rol lectura. La escritura de la demo utiliza
+un inventario separado y solo routers privados; no ejecutarla contra el Cisco
+compartido del profesor. R6 y la práctica Ansible de Semana 5 son independientes.
 
 ## Uso de IA
 
