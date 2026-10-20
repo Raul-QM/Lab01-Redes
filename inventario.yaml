@@ -1,6 +1,7 @@
 # Host y usuario del laboratorio comprobados mediante SSH.
 # Cambiar estudiante por su numero de lista antes de la segunda etapa (R6).
 estudiante: null
+nombre_estudiante: Raúl
 
 equipos:
   - nombre: mt-lab
