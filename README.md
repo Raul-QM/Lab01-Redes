@@ -225,22 +225,7 @@ no ejecutar comandos de escritura de esa demo contra él. La conexión entre amb
 PC no se da por comprobada a partir de un SSH exitoso al laboratorio compartido.
 La práctica Ansible PracticaClase5 es independiente de este Lab01.
 
-## Entrega y defensa
-
-En Campus Virtual se envía SOLO https://github.com/Raul-QM/Lab01-Redes.
-El profesor revisa código, commits, logs y reporte real. No se requieren capturas ni PDF.
-El acceso obligatorio de **randthat** se verificó mediante la API de GitHub:
-colaborador con permiso **write**; no hay invitación pendiente para ese usuario.
-El número 24 se confirmó con la lista de la auditoría docente, no con el usuario GitHub.
-
-Antes de entregar, revisar docs/VALIDACION.md y que reporte_estado.json proceda de
-la ejecución real reciente. Para la defensa, explicar el diccionario DRIVERS,
-los parsers, el bloque with, el ciclo por equipo, la comparación antes de crear y
-por qué --limpiar exige también el comentario de propietario.
-
 ## Uso de IA
 
-Se utilizó Codex para revisar el enunciado y los apuntes, preparar R1-R6 y pruebas,
-conectar el proyecto GNS3 e importar la imagen Cisco proporcionada por el estudiante.
-El estudiante debe revisar, comprender y poder explicar el código en la defensa.
-La evidencia distingue siempre pruebas simuladas de las ejecuciones reales.
+Se utilizó Codex como apoyo en el desarrollo y la depuración del código,
+la configuración del entorno GNS3 y la verificación de resultados.
