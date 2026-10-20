@@ -463,7 +463,7 @@
                     "dynamips_id": 1,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x63d6d8d8",
                     "idlesleep": 30,
                     "image": "c7200-adventerprisek9-mz.124-24.T5.image",
                     "image_md5sum": "6b89d0d804e1f2bb5b8bda66b5692047",

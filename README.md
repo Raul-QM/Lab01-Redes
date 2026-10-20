@@ -192,6 +192,8 @@ El Cisco local es un 7200 (solicitado por el estudiante), en vez del 3725 de la
 imagen docente. Tiene NPE-400, 512 MB, C7200-IO-FE y PA-FE-TX, en GNS3 VM.
 Imagen c7200-adventerprisek9-mz.124-24.T5.image;
 MD5 6b89d0d804e1f2bb5b8bda66b5692047. Las imágenes y discos no se publican.
+El 19 de octubre se calculó y aplicó Idle-PC 0x63d6d8d8 al Cisco local;
+GNS3 confirmó el equipo encendido con ese valor.
 El proyecto requiere esas imágenes y GNS3 VM instalada; el .gns3 no es una VM portable.
 La IP del laboratorio compartido 10.60.30.202 no se asigna automáticamente al router
 local por abrir el proyecto. Revisar conectividad antes de ejecutar.
