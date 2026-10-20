@@ -16,7 +16,8 @@ No acredita pruebas que todavía no se hayan ejecutado.
 | Extra Cisco | Comandos y parser preparados | Extra opcional no acreditado por pruebas sin red |
 
 Prueba automática ejecutada: python -m unittest discover -s tests -v.
-Resultado: 15 pruebas correctas. No conecta ni escribe a routers.
+Resultado: 15 pruebas correctas en Windows y 15 en Debian/WSL; inventario validado
+también desde Linux. No conecta ni escribe a routers.
 
 Para cerrar los pendientes de ejecución real:
 

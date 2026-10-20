@@ -11,7 +11,7 @@ sin duplicados. --limpiar elimina exclusivamente los objetos de R6 del estudiant
 
 El avance R1-R3 del 6 de octubre se conserva en los commits anteriores.
 R4-R6 están implementados. Las pruebas automáticas se ejecutaron el 19 de octubre
-(15 pruebas correctas). La prueba REAL completa de R4-R6 y su reporte final están
+(15 pruebas correctas tanto en Windows como en Debian/WSL). La prueba REAL completa de R4-R6 y su reporte final están
 pendientes de conexión al laboratorio, contraseña local y número de lista confirmado.
 No se presenta una simulación como ejecución real. Véase docs/VALIDACION.md.
 
