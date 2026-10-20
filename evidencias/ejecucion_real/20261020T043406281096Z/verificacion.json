@@ -1,0 +1,13 @@
+{
+  "fecha_hora": "2026-10-20T04:34:48.403425+00:00",
+  "fuente": "SSH Netmiko real; no simulada",
+  "resultado": "ok",
+  "sha256_reporte_final": "781ddbf324997ece07512ea73d32109ea4989b37810bc5dc03393a711396a504",
+  "pasos": [
+    "aplicar y verificar",
+    "repetir sin cambios",
+    "limpiar y verificar",
+    "repetir limpieza sin cambios",
+    "aplicar y verificar estado final"
+  ]
+}

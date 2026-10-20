@@ -1,0 +1,5 @@
+EQUIPO | IP             | ESTADO | INTERFACES | GATEWAY POR DEFECTO
+-------+----------------+--------+------------+--------------------
+mt-lab | 192.168.56.202 | ok     | 5          | 10.0.3.2           
+mt-lab: sin cambios
+Reporte: /mnt/c/Users/EliteBook/Desktop/Redes Programables/Semana 4/Lab01/evidencias/ejecucion_real/20261020T043406281096Z/02_repetir.json

@@ -1,0 +1,89 @@
+[
+  {
+    "equipo": "mt-error-autenticacion",
+    "host": "192.168.56.202",
+    "device_type": "mikrotik_routeros",
+    "rol": "lectura",
+    "fecha_hora": "2026-10-20T04:25:20.453814+00:00",
+    "estado": "error: autenticacion SSH",
+    "datos": null,
+    "configuracion": null
+  },
+  {
+    "equipo": "mt-lab",
+    "host": "192.168.56.202",
+    "device_type": "mikrotik_routeros",
+    "rol": "lectura",
+    "fecha_hora": "2026-10-20T04:25:28.833946+00:00",
+    "estado": "ok",
+    "datos": {
+      "nombre_equipo": "mt-lab-local",
+      "tiempo_encendido": "48m48s",
+      "interfaces": [
+        {
+          "nombre": "ether1",
+          "tipo": "ether",
+          "activa": true,
+          "direcciones": [
+            {
+              "direccion": "10.60.30.202/24",
+              "red": "10.60.30.0",
+              "dinamica": false,
+              "deshabilitada": false
+            },
+            {
+              "direccion": "192.168.56.202/24",
+              "red": "192.168.56.0",
+              "dinamica": false,
+              "deshabilitada": false
+            }
+          ]
+        },
+        {
+          "nombre": "ether2",
+          "tipo": "ether",
+          "activa": true,
+          "direcciones": []
+        },
+        {
+          "nombre": "ether3",
+          "tipo": "ether",
+          "activa": true,
+          "direcciones": [
+            {
+              "direccion": "10.0.3.17/24",
+              "red": "10.0.3.0",
+              "dinamica": true,
+              "deshabilitada": false
+            }
+          ]
+        },
+        {
+          "nombre": "lo",
+          "tipo": "loopback",
+          "activa": true,
+          "direcciones": []
+        },
+        {
+          "nombre": "lo-ssh-24",
+          "tipo": "bridge",
+          "activa": true,
+          "direcciones": []
+        }
+      ],
+      "rutas_por_defecto": [
+        {
+          "destino": "0.0.0.0/0",
+          "gateway": "10.0.3.2",
+          "gateway_inmediato": "10.0.3.2%ether3",
+          "distancia": 1,
+          "activa": true
+        }
+      ]
+    },
+    "configuracion": {
+      "resultado": "solo lectura",
+      "cambios": []
+    }
+  }
+]
