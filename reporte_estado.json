@@ -4,11 +4,11 @@
     "host": "192.168.56.202",
     "device_type": "mikrotik_routeros",
     "rol": "escritura",
-    "fecha_hora": "2026-10-20T04:34:41.141065+00:00",
+    "fecha_hora": "2026-10-20T05:14:07.214724+00:00",
     "estado": "ok",
     "datos": {
       "nombre_equipo": "mt-lab-local",
-      "tiempo_encendido": "57m59s",
+      "tiempo_encendido": "1h37m30s",
       "interfaces": [
         {
           "nombre": "ether1",
@@ -33,7 +33,14 @@
           "nombre": "ether2",
           "tipo": "ether",
           "activa": true,
-          "direcciones": []
+          "direcciones": [
+            {
+              "direccion": "172.16.20.1/24",
+              "red": "172.16.20.0",
+              "dinamica": false,
+              "deshabilitada": false
+            }
+          ]
         },
         {
           "nombre": "ether3",
@@ -97,6 +104,57 @@
         "bridge": true,
         "direccion": true
       }
+    }
+  },
+  {
+    "equipo": "cisco-gns3",
+    "host": "192.168.56.203",
+    "device_type": "cisco_ios",
+    "rol": "lectura",
+    "fecha_hora": "2026-10-20T05:14:21.370674+00:00",
+    "estado": "ok",
+    "datos": {
+      "nombre_equipo": "cisco-lab-local",
+      "tiempo_encendido": "14 minutes",
+      "interfaces": [
+        {
+          "nombre": "FastEthernet0/0",
+          "estado": "up",
+          "protocolo": "up",
+          "direcciones": [
+            {
+              "direccion": "192.168.56.203"
+            }
+          ]
+        },
+        {
+          "nombre": "FastEthernet1/0",
+          "estado": "up",
+          "protocolo": "up",
+          "direcciones": [
+            {
+              "direccion": "172.16.10.1"
+            }
+          ]
+        },
+        {
+          "nombre": "NVI0",
+          "estado": "up",
+          "protocolo": "up",
+          "direcciones": []
+        }
+      ],
+      "rutas_por_defecto": [
+        {
+          "destino": "0.0.0.0/0",
+          "gateway": "192.168.56.202",
+          "activa": true
+        }
+      ]
+    },
+    "configuracion": {
+      "resultado": "solo lectura",
+      "cambios": []
     }
   }
 ]

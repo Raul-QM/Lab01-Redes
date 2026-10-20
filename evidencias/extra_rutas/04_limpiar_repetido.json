@@ -1,0 +1,17 @@
+{
+  "fecha_hora": "2026-10-20T05:11:24.143941+00:00",
+  "fuente": "SSH real",
+  "modo": "limpiar",
+  "cambios": [],
+  "aplicada": false,
+  "limpia": true,
+  "estado": {
+    "rutas_mt": [],
+    "nat_mt": [],
+    "lineas_cisco": [
+      "ip route 0.0.0.0 0.0.0.0 192.168.56.202",
+      "ip nat inside source list 10 interface FastEthernet0/0 overload"
+    ],
+    "acl_cisco": []
+  }
+}

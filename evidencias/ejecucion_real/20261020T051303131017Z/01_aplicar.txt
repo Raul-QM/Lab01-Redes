@@ -1,0 +1,7 @@
+EQUIPO     | IP             | ESTADO | INTERFACES | GATEWAY POR DEFECTO
+-----------+----------------+--------+------------+--------------------
+mt-lab     | 192.168.56.202 | ok     | 5          | 10.0.3.2
+cisco-gns3 | 192.168.56.203 | ok     | 3          | 192.168.56.202
+mt-lab: sin cambios
+cisco-gns3: solo lectura
+Reporte: /mnt/c/Users/EliteBook/Desktop/Redes Programables/Semana 4/Lab01/evidencias/ejecucion_real/20261020T051303131017Z/01_aplicar.json

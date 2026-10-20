@@ -8,20 +8,20 @@ Press F1 for help
 
 [lab-ssh@mt-lab-local] > /system resource print
 
-                   uptime: 57m26s
+                   uptime: 1h36m28s
                   version: 7.20.8 (long-term)
                build-time: 2026-01-30 09:17:54
          factory-software: 7.1
-              free-memory: 51.0MiB
+              free-memory: 48.8MiB
              total-memory: 256.0MiB
                       cpu: QEMU
                 cpu-count: 1
             cpu-frequency: 2112MHz
-                 cpu-load: 85%
+                 cpu-load: 100%
            free-hdd-space: 69.2MiB
           total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6664
-         write-sect-total: 6664
+  write-sect-since-reboot: 7840
+         write-sect-total: 7840
         architecture-name: x86_64
                board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
                  platform: MikroTik
@@ -32,7 +32,7 @@ Press F1 for help
 1 R name=ether2 default-name=ether2 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:01 last-link-up-time=2026-10-20 03:38:42 link-downs=0
 2 R name=ether3 default-name=ether3 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:02 last-link-up-time=2026-10-20 03:57:43 link-downs=0
 3 R name=lo type=loopback mtu=65536 actual-mtu=65536 mac-address=00:00:00:00:00:00 last-link-up-time=2026-10-20 03:38:37 link-downs=0
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /ip address print terse
 
@@ -40,6 +40,7 @@ Press F1 for help
 1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
 2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
 3   comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
+4   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
 
 [lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
 
@@ -47,11 +48,11 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /interface bridge print terse where name="lo-ssh-24"
 
-0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=6A:9A:FA:72:A9:0C protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
+0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=4A:11:0B:65:8D:6A protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
 
 [lab-ssh@mt-lab-local] > /interface print terse where name="lo-ssh-24"
 
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /interface bridge port print terse where bridge="lo-ssh-24"
 
@@ -65,11 +66,11 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /interface bridge print terse where name="lo-ssh-24"
 
-0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=6A:9A:FA:72:A9:0C protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
+0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=4A:11:0B:65:8D:6A protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
 
 [lab-ssh@mt-lab-local] > /interface print terse where name="lo-ssh-24"
 
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /interface bridge port print terse where bridge="lo-ssh-24"
 
@@ -100,20 +101,20 @@ Press F1 for help
 
 [lab-ssh@mt-lab-local] > /system resource print
 
-                   uptime: 57m36s
+                   uptime: 1h36m42s
                   version: 7.20.8 (long-term)
                build-time: 2026-01-30 09:17:54
          factory-software: 7.1
-              free-memory: 51.0MiB
+              free-memory: 48.9MiB
              total-memory: 256.0MiB
                       cpu: QEMU
                 cpu-count: 1
             cpu-frequency: 2112MHz
-                 cpu-load: 92%
+                 cpu-load: 53%
            free-hdd-space: 69.2MiB
           total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6696
-         write-sect-total: 6696
+  write-sect-since-reboot: 7872
+         write-sect-total: 7872
         architecture-name: x86_64
                board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
                  platform: MikroTik
@@ -124,7 +125,7 @@ Press F1 for help
 1 R name=ether2 default-name=ether2 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:01 last-link-up-time=2026-10-20 03:38:42 link-downs=0
 2 R name=ether3 default-name=ether3 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:02 last-link-up-time=2026-10-20 03:57:43 link-downs=0
 3 R name=lo type=loopback mtu=65536 actual-mtu=65536 mac-address=00:00:00:00:00:00 last-link-up-time=2026-10-20 03:38:37 link-downs=0
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /ip address print terse
 
@@ -132,6 +133,7 @@ Press F1 for help
 1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
 2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
 3   comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
+4   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
 
 [lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
 
@@ -139,11 +141,11 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /interface bridge print terse where name="lo-ssh-24"
 
-0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=6A:9A:FA:72:A9:0C protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
+0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=4A:11:0B:65:8D:6A protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
 
 [lab-ssh@mt-lab-local] > /interface print terse where name="lo-ssh-24"
 
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /interface bridge port print terse where bridge="lo-ssh-24"
 
@@ -157,11 +159,11 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /interface bridge print terse where name="lo-ssh-24"
 
-0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=6A:9A:FA:72:A9:0C protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
+0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=4A:11:0B:65:8D:6A protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
 
 [lab-ssh@mt-lab-local] > /interface print terse where name="lo-ssh-24"
 
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /interface bridge port print terse where bridge="lo-ssh-24"
 
@@ -192,20 +194,20 @@ Press F1 for help
 
 [lab-ssh@mt-lab-local] > /system resource print
 
-                   uptime: 57m41s
+                   uptime: 1h36m54s
                   version: 7.20.8 (long-term)
                build-time: 2026-01-30 09:17:54
          factory-software: 7.1
-              free-memory: 51.2MiB
+              free-memory: 48.9MiB
              total-memory: 256.0MiB
                       cpu: QEMU
                 cpu-count: 1
             cpu-frequency: 2112MHz
-                 cpu-load: 87%
+                 cpu-load: 28%
            free-hdd-space: 69.2MiB
           total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6728
-         write-sect-total: 6728
+  write-sect-since-reboot: 7904
+         write-sect-total: 7904
         architecture-name: x86_64
                board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
                  platform: MikroTik
@@ -216,7 +218,7 @@ Press F1 for help
 1 R name=ether2 default-name=ether2 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:01 last-link-up-time=2026-10-20 03:38:42 link-downs=0
 2 R name=ether3 default-name=ether3 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:02 last-link-up-time=2026-10-20 03:57:43 link-downs=0
 3 R name=lo type=loopback mtu=65536 actual-mtu=65536 mac-address=00:00:00:00:00:00 last-link-up-time=2026-10-20 03:38:37 link-downs=0
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /ip address print terse
 
@@ -224,6 +226,7 @@ Press F1 for help
 1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
 2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
 3   comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
+4   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
 
 [lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
 
@@ -231,11 +234,11 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /interface bridge print terse where name="lo-ssh-24"
 
-0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=6A:9A:FA:72:A9:0C protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
+0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=4A:11:0B:65:8D:6A protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
 
 [lab-ssh@mt-lab-local] > /interface print terse where name="lo-ssh-24"
 
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=6A:9A:FA:72:A9:0C last-link-up-time=2026-10-20 04:24:30 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
 
 [lab-ssh@mt-lab-local] > /interface bridge port print terse where bridge="lo-ssh-24"
 
@@ -267,65 +270,11 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /system resource print
 
-                   uptime: 57m46s
+                   uptime: 1h37m3s
                   version: 7.20.8 (long-term)
                build-time: 2026-01-30 09:17:54
          factory-software: 7.1
-              free-memory: 50.5MiB
-             total-memory: 256.0MiB
-                      cpu: QEMU
-                cpu-count: 1
-            cpu-frequency: 2112MHz
-                 cpu-load: 91%
-           free-hdd-space: 69.2MiB
-          total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6792
-         write-sect-total: 6792
-        architecture-name: x86_64
-               board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
-                 platform: MikroTik
-
-[lab-ssh@mt-lab-local] > /interface print terse
-
-0 R name=ether1 default-name=ether1 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:00 last-link-up-time=2026-10-20 03:38:42 link-downs=0
-1 R name=ether2 default-name=ether2 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:01 last-link-up-time=2026-10-20 03:38:42 link-downs=0
-2 R name=ether3 default-name=ether3 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:02 last-link-up-time=2026-10-20 03:57:43 link-downs=0
-3 R name=lo type=loopback mtu=65536 actual-mtu=65536 mac-address=00:00:00:00:00:00 last-link-up-time=2026-10-20 03:38:37 link-downs=0
-
-[lab-ssh@mt-lab-local] > /ip address print terse
-
-0   comment=LAB01-gestion address=10.60.30.202/24 network=10.60.30.0 interface=ether1 actual-interface=ether1
-1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
-2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
-
-[lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
-
-DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.3.2%ether3 distance=1 scope=30 target-scope=10 vrf-interface=ether3
-
-[lab-ssh@mt-lab-local] > quit
-
-  MMM      MMM       KKK                          TTTTTTTTTTT      KKK
-  MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK
-  MMM MMMM MMM  III  KKK  KKK  RRRRRR     OOOOOO      TTT     III  KKK  KKK
-  MMM  MM  MMM  III  KKKKK     RRR  RRR  OOO  OOO     TTT     III  KKKKK
-  MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
-  MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
-
-  MikroTik RouterOS 7.20.8 (c) 1999-2026       https://www.mikrotik.com/
-
-Press F1 for help
-
-[lab-ssh@mt-lab-local] > /system identity print
-
-  name: mt-lab-local
-
-[lab-ssh@mt-lab-local] > /system resource print
-
-                   uptime: 57m51s
-                  version: 7.20.8 (long-term)
-               build-time: 2026-01-30 09:17:54
-         factory-software: 7.1
-              free-memory: 50.7MiB
+              free-memory: 48.7MiB
              total-memory: 256.0MiB
                       cpu: QEMU
                 cpu-count: 1
@@ -333,8 +282,8 @@ Press F1 for help
                  cpu-load: 86%
            free-hdd-space: 69.2MiB
           total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6824
-         write-sect-total: 6824
+  write-sect-since-reboot: 7968
+         write-sect-total: 7968
         architecture-name: x86_64
                board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
                  platform: MikroTik
@@ -351,6 +300,62 @@ Press F1 for help
 0   comment=LAB01-gestion address=10.60.30.202/24 network=10.60.30.0 interface=ether1 actual-interface=ether1
 1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
 2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
+3   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
+
+[lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
+
+DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.3.2%ether3 distance=1 scope=30 target-scope=10 vrf-interface=ether3
+
+[lab-ssh@mt-lab-local] > quit
+
+  MMM      MMM       KKK                          TTTTTTTTTTT      KKK
+  MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK
+  MMM MMMM MMM  III  KKK  KKK  RRRRRR     OOOOOO      TTT     III  KKK  KKK
+  MMM  MM  MMM  III  KKKKK     RRR  RRR  OOO  OOO     TTT     III  KKKKK
+  MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
+  MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
+
+  MikroTik RouterOS 7.20.8 (c) 1999-2026       https://www.mikrotik.com/
+
+Press F1 for help
+
+[lab-ssh@mt-lab-local] > /system identity print
+
+  name: mt-lab-local
+
+[lab-ssh@mt-lab-local] > /system resource print
+
+                   uptime: 1h37m11s
+                  version: 7.20.8 (long-term)
+               build-time: 2026-01-30 09:17:54
+         factory-software: 7.1
+              free-memory: 48.8MiB
+             total-memory: 256.0MiB
+                      cpu: QEMU
+                cpu-count: 1
+            cpu-frequency: 2112MHz
+                 cpu-load: 35%
+           free-hdd-space: 69.2MiB
+          total-hdd-space: 89.2MiB
+  write-sect-since-reboot: 8008
+         write-sect-total: 8008
+        architecture-name: x86_64
+               board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
+                 platform: MikroTik
+
+[lab-ssh@mt-lab-local] > /interface print terse
+
+0 R name=ether1 default-name=ether1 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:00 last-link-up-time=2026-10-20 03:38:42 link-downs=0
+1 R name=ether2 default-name=ether2 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:01 last-link-up-time=2026-10-20 03:38:42 link-downs=0
+2 R name=ether3 default-name=ether3 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:02 last-link-up-time=2026-10-20 03:57:43 link-downs=0
+3 R name=lo type=loopback mtu=65536 actual-mtu=65536 mac-address=00:00:00:00:00:00 last-link-up-time=2026-10-20 03:38:37 link-downs=0
+
+[lab-ssh@mt-lab-local] > /ip address print terse
+
+0   comment=LAB01-gestion address=10.60.30.202/24 network=10.60.30.0 interface=ether1 actual-interface=ether1
+1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
+2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
+3   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
 
 [lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
 
@@ -395,20 +400,20 @@ Press F1 for help
 
 [lab-ssh@mt-lab-local] > /system resource print
 
-                   uptime: 57m56s
+                   uptime: 1h37m21s
                   version: 7.20.8 (long-term)
                build-time: 2026-01-30 09:17:54
          factory-software: 7.1
-              free-memory: 50.7MiB
+              free-memory: 48.8MiB
              total-memory: 256.0MiB
                       cpu: QEMU
                 cpu-count: 1
             cpu-frequency: 2112MHz
-                 cpu-load: 90%
+                 cpu-load: 31%
            free-hdd-space: 69.2MiB
           total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6856
-         write-sect-total: 6856
+  write-sect-since-reboot: 8040
+         write-sect-total: 8040
         architecture-name: x86_64
                board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
                  platform: MikroTik
@@ -425,6 +430,7 @@ Press F1 for help
 0   comment=LAB01-gestion address=10.60.30.202/24 network=10.60.30.0 interface=ether1 actual-interface=ether1
 1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
 2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
+3   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
 
 [lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
 
@@ -446,21 +452,21 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /interface bridge print terse where name="lo-ssh-24"
 
-0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=4A:11:0B:65:8D:6A protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
+0 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 mtu=auto actual-mtu=1500 l2mtu=65535 arp=enabled arp-timeout=auto mac-address=F6:67:6A:DD:9A:3B protocol-mode=none fast-forward=yes igmp-snooping=no auto-mac=yes ageing-time=5m vlan-filtering=no dhcp-snooping=no port-cost-mode=long mvrp=no forward-reserved-addresses=no max-learned-entries=auto
 
 [lab-ssh@mt-lab-local] > /interface print terse where name="lo-ssh-24"
 
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=F6:67:6A:DD:9A:3B last-link-up-time=2026-10-20 05:14:10 link-downs=0
 
 [lab-ssh@mt-lab-local] > /interface bridge port print terse where bridge="lo-ssh-24"
 
 [lab-ssh@mt-lab-local] > /ip address print terse where interface="lo-ssh-24"
 
-3 comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
+4 comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
 
 [lab-ssh@mt-lab-local] > /ip address print terse where address="10.253.0.24/32"
 
-3 comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
+4 comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
 
 [lab-ssh@mt-lab-local] > /system identity print
 
@@ -468,20 +474,20 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 
 [lab-ssh@mt-lab-local] > /system resource print
 
-                   uptime: 57m59s
+                   uptime: 1h37m30s
                   version: 7.20.8 (long-term)
                build-time: 2026-01-30 09:17:54
          factory-software: 7.1
-              free-memory: 50.4MiB
+              free-memory: 48.5MiB
              total-memory: 256.0MiB
                       cpu: QEMU
                 cpu-count: 1
             cpu-frequency: 2112MHz
-                 cpu-load: 95%
+                 cpu-load: 93%
            free-hdd-space: 69.2MiB
           total-hdd-space: 89.2MiB
-  write-sect-since-reboot: 6960
-         write-sect-total: 6960
+  write-sect-since-reboot: 8104
+         write-sect-total: 8104
         architecture-name: x86_64
                board-name: CHR QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996)
                  platform: MikroTik
@@ -492,14 +498,15 @@ DAd dst-address=0.0.0.0/0 routing-table=main gateway=10.0.3.2 immediate-gw=10.0.
 1 R name=ether2 default-name=ether2 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:01 last-link-up-time=2026-10-20 03:38:42 link-downs=0
 2 R name=ether3 default-name=ether3 type=ether mtu=1500 actual-mtu=1500 mac-address=0C:FD:7B:3E:00:02 last-link-up-time=2026-10-20 03:57:43 link-downs=0
 3 R name=lo type=loopback mtu=65536 actual-mtu=65536 mac-address=00:00:00:00:00:00 last-link-up-time=2026-10-20 03:38:37 link-downs=0
-4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=4A:11:0B:65:8D:6A last-link-up-time=2026-10-20 04:34:44 link-downs=0
+4 R comment=LAB01 N=24 - Raul Quesada Morera name=lo-ssh-24 type=bridge mtu=auto actual-mtu=1500 l2mtu=65535 mac-address=F6:67:6A:DD:9A:3B last-link-up-time=2026-10-20 05:14:10 link-downs=0
 
 [lab-ssh@mt-lab-local] > /ip address print terse
 
 0   comment=LAB01-gestion address=10.60.30.202/24 network=10.60.30.0 interface=ether1 actual-interface=ether1
 1   comment=LAB01-gestion-hostonly address=192.168.56.202/24 network=192.168.56.0 interface=ether1 actual-interface=ether1
 2 D address=10.0.3.17/24 network=10.0.3.0 interface=ether3 actual-interface=ether3
-3   comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
+3   comment=LAB01-LAN-PC2 address=172.16.20.1/24 network=172.16.20.0 interface=ether2 actual-interface=ether2
+4   comment=LAB01 N=24 - Raul Quesada Morera address=10.253.0.24/32 network=10.253.0.24 interface=lo-ssh-24 actual-interface=lo-ssh-24
 
 [lab-ssh@mt-lab-local] > /ip route print terse where dst-address=0.0.0.0/0
 

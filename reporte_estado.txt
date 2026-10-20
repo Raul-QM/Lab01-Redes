@@ -1,5 +1,7 @@
-EQUIPO | IP             | ESTADO | INTERFACES | GATEWAY POR DEFECTO
--------+----------------+--------+------------+--------------------
-mt-lab | 192.168.56.202 | ok     | 5          | 10.0.3.2           
+EQUIPO     | IP             | ESTADO | INTERFACES | GATEWAY POR DEFECTO
+-----------+----------------+--------+------------+--------------------
+mt-lab     | 192.168.56.202 | ok     | 5          | 10.0.3.2
+cisco-gns3 | 192.168.56.203 | ok     | 3          | 192.168.56.202
 mt-lab: bridge creado, direccion creada
+cisco-gns3: solo lectura
 Reporte: /mnt/c/Users/EliteBook/Desktop/Redes Programables/Semana 4/Lab01/reporte_estado.json

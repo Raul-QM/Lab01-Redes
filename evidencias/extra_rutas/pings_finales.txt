@@ -1,0 +1,84 @@
+PC1
+show ip
+
+NAME        : PC1[1]
+IP/MASK     : 172.16.10.11/24
+GATEWAY     : 172.16.10.1
+DNS         : 8.8.8.8  1.1.1.1
+MAC         : 00:50:79:66:68:00
+LPORT       : 20020
+RHOST:PORT  : 127.0.0.1:20021
+MTU         : 1500
+
+PC1>
+ping 172.16.10.1 -c 3
+
+84 bytes from 172.16.10.1 icmp_seq=1 ttl=255 time=32.546 ms
+84 bytes from 172.16.10.1 icmp_seq=2 ttl=255 time=21.460 ms
+84 bytes from 172.16.10.1 icmp_seq=3 ttl=255 time=23.085 ms
+
+PC1>
+ping 172.16.20.100 -c 3
+
+84 bytes from 172.16.20.100 icmp_seq=1 ttl=62 time=84.756 ms
+84 bytes from 172.16.20.100 icmp_seq=2 ttl=62 time=336.905 ms
+84 bytes from 172.16.20.100 icmp_seq=3 ttl=62 time=45.205 ms
+
+PC1>
+ping 1.1.1.1 -c 3
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=253 time=178.531 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=253 time=158.181 ms
+84 bytes from 1.1.1.1 icmp_seq=3 ttl=253 time=157.506 ms
+
+PC1>
+ping google.com -c 3
+google.com resolved to 192.178.50.46
+
+84 bytes from 192.178.50.46 icmp_seq=1 ttl=253 time=80.022 ms
+84 bytes from 192.178.50.46 icmp_seq=2 ttl=253 time=87.322 ms
+84 bytes from 192.178.50.46 icmp_seq=3 ttl=253 time=84.401 ms
+
+PC1>
+PC2
+show ip
+
+NAME        : PC2[1]
+IP/MASK     : 172.16.20.100/24
+GATEWAY     : 172.16.20.1
+DNS         : 8.8.8.8  1.1.1.1
+MAC         : 00:50:79:66:68:01
+LPORT       : 20022
+RHOST:PORT  : 127.0.0.1:20023
+MTU         : 1500
+
+PC2>
+ping 172.16.20.1 -c 3
+
+84 bytes from 172.16.20.1 icmp_seq=1 ttl=64 time=36.321 ms
+84 bytes from 172.16.20.1 icmp_seq=2 ttl=64 time=7.279 ms
+84 bytes from 172.16.20.1 icmp_seq=3 ttl=64 time=11.448 ms
+
+PC2>
+ping 172.16.10.11 -c 3
+
+84 bytes from 172.16.10.11 icmp_seq=1 ttl=62 time=85.171 ms
+84 bytes from 172.16.10.11 icmp_seq=2 ttl=62 time=32.411 ms
+84 bytes from 172.16.10.11 icmp_seq=3 ttl=62 time=73.307 ms
+
+PC2>
+ping 1.1.1.1 -c 3
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=254 time=112.398 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=254 time=115.284 ms
+84 bytes from 1.1.1.1 icmp_seq=3 ttl=254 time=110.597 ms
+
+PC2>
+ping google.com -c 3
+google.com resolved to 142.251.210.78
+
+84 bytes from 142.251.210.78 icmp_seq=1 ttl=254 time=67.818 ms
+84 bytes from 142.251.210.78 icmp_seq=2 ttl=254 time=54.067 ms
+84 bytes from 142.251.210.78 icmp_seq=3 ttl=254 time=54.172 ms
+
+PC2>

@@ -1,0 +1,109 @@
+cisco-lab-local#terminal width 511
+cisco-lab-local#terminal length 0
+cisco-lab-local#show running-config | include hostname
+hostname cisco-lab-local
+cisco-lab-local#show version | include uptime
+cisco-lab-local uptime is 13 minutes
+cisco-lab-local#show ip interface brief
+Any interface listed with OK? value "NO" does not have a valid configuration
+
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.56.203  YES manual up                    up
+FastEthernet1/0            172.16.10.1     YES manual up                    up
+NVI0                       unassigned      NO  unset  up                    up
+cisco-lab-local#show ip route 0.0.0.0
+Routing entry for 0.0.0.0/0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 192.168.56.202
+      Route metric is 0, traffic share count is 1
+
+cisco-lab-local#exit
+
+cisco-lab-local#terminal width 511
+cisco-lab-local#terminal length 0
+cisco-lab-local#show running-config | include hostname
+hostname cisco-lab-local
+cisco-lab-local#show version | include uptime
+cisco-lab-local uptime is 13 minutes
+cisco-lab-local#show ip interface brief
+Any interface listed with OK? value "NO" does not have a valid configuration
+
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.56.203  YES manual up                    up
+FastEthernet1/0            172.16.10.1     YES manual up                    up
+NVI0                       unassigned      NO  unset  up                    up
+cisco-lab-local#show ip route 0.0.0.0
+Routing entry for 0.0.0.0/0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 192.168.56.202
+      Route metric is 0, traffic share count is 1
+
+cisco-lab-local#exit
+
+cisco-lab-local#terminal width 511
+cisco-lab-local#terminal length 0
+cisco-lab-local#show running-config | include hostname
+hostname cisco-lab-local
+cisco-lab-local#show version | include uptime
+cisco-lab-local uptime is 14 minutes
+cisco-lab-local#show ip interface brief
+Any interface listed with OK? value "NO" does not have a valid configuration
+
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.56.203  YES manual up                    up
+FastEthernet1/0            172.16.10.1     YES manual up                    up
+NVI0                       unassigned      NO  unset  up                    up
+cisco-lab-local#show ip route 0.0.0.0
+Routing entry for 0.0.0.0/0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 192.168.56.202
+      Route metric is 0, traffic share count is 1
+
+cisco-lab-local#exit
+
+cisco-lab-local#terminal width 511
+cisco-lab-local#terminal length 0
+cisco-lab-local#show running-config | include hostname
+hostname cisco-lab-local
+cisco-lab-local#show version | include uptime
+cisco-lab-local uptime is 14 minutes
+cisco-lab-local#show ip interface brief
+Any interface listed with OK? value "NO" does not have a valid configuration
+
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.56.203  YES manual up                    up
+FastEthernet1/0            172.16.10.1     YES manual up                    up
+NVI0                       unassigned      NO  unset  up                    up
+cisco-lab-local#show ip route 0.0.0.0
+Routing entry for 0.0.0.0/0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 192.168.56.202
+      Route metric is 0, traffic share count is 1
+
+cisco-lab-local#exit
+
+cisco-lab-local#terminal width 511
+cisco-lab-local#terminal length 0
+cisco-lab-local#show running-config | include hostname
+hostname cisco-lab-local
+cisco-lab-local#show version | include uptime
+cisco-lab-local uptime is 14 minutes
+cisco-lab-local#show ip interface brief
+Any interface listed with OK? value "NO" does not have a valid configuration
+
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.56.203  YES manual up                    up
+FastEthernet1/0            172.16.10.1     YES manual up                    up
+NVI0                       unassigned      NO  unset  up                    up
+cisco-lab-local#show ip route 0.0.0.0
+Routing entry for 0.0.0.0/0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 192.168.56.202
+      Route metric is 0, traffic share count is 1
+
+cisco-lab-local#exit

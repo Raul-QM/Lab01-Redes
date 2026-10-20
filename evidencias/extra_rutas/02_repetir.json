@@ -1,0 +1,44 @@
+{
+  "fecha_hora": "2026-10-20T05:09:31.052338+00:00",
+  "fuente": "SSH real",
+  "modo": "aplicar",
+  "cambios": [],
+  "aplicada": true,
+  "limpia": false,
+  "estado": {
+    "rutas_mt": [
+      {
+        "indice": "0",
+        "flags": "As",
+        "comment": "RUTAS-LAB-24",
+        "dst-address": "172.16.10.0/24",
+        "routing-table": "main",
+        "gateway": "192.168.56.203",
+        "immediate-gw": "192.168.56.203%ether1",
+        "distance": "1",
+        "scope": "30",
+        "target-scope": "10"
+      }
+    ],
+    "nat_mt": [
+      {
+        "indice": "0",
+        "flags": "",
+        "comment": "RUTAS-LAB-24",
+        "chain": "srcnat",
+        "action": "accept",
+        "src-address": "172.16.20.0/24",
+        "dst-address": "172.16.10.0/24"
+      }
+    ],
+    "lineas_cisco": [
+      "ip route 0.0.0.0 0.0.0.0 192.168.56.202",
+      "ip route 172.16.20.0 255.255.255.0 192.168.56.202 name RUTAS-LAB-24",
+      "ip nat inside source list NAT-PC1-LAB01 interface FastEthernet0/0 overload"
+    ],
+    "acl_cisco": [
+      "deny ip 172.16.10.0 0.0.0.255 172.16.20.0 0.0.0.255",
+      "permit ip 172.16.10.0 0.0.0.255 any"
+    ]
+  }
+}

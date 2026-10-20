@@ -1,0 +1,7 @@
+EQUIPO     | IP             | ESTADO | INTERFACES | GATEWAY POR DEFECTO
+-----------+----------------+--------+------------+--------------------
+mt-lab     | 192.168.56.202 | ok     | 4          | 10.0.3.2
+cisco-gns3 | 192.168.56.203 | ok     | 3          | 192.168.56.202
+mt-lab: direccion eliminada, bridge eliminado
+cisco-gns3: solo lectura
+Reporte: /mnt/c/Users/EliteBook/Desktop/Redes Programables/Semana 4/Lab01/evidencias/ejecucion_real/20261020T051303131017Z/03_limpiar.json
