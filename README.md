@@ -199,6 +199,13 @@ simuladas y NO acreditan conectividad ni permisos reales.
 
 ## Topología GNS3 y guía de rutas
 
+En esta laptop, iniciar primero MikroTik y esperar su pantalla de login o respuesta
+SSH; después iniciar Cisco y las PC. MikroTik tiene 512 MB de RAM. Este orden evita
+arrancar ambos emuladores a la vez mientras GNS3 VM está saturada de CPU.
+Si se queda en `Load system`, detener Cisco temporalmente y revisar el arranque;
+no borrar el nodo ni recrear su disco. La recuperación del 20 de octubre conservó
+la configuración y se verificó con SSH y ocho pings correctos.
+
 Lab01.gns3 contiene la topología guardada:
 
 ~~~text

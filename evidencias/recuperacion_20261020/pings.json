@@ -1,0 +1,77 @@
+{
+  "fecha_hora": "2026-10-21T00:26:59.134830+00:00",
+  "fuente": "Consolas VPCS reales de GNS3",
+  "correcto": true,
+  "equipos": [
+    {
+      "pc": "PC1",
+      "configuracion_real": "show ip\n\nNAME        : PC1[1]\nIP/MASK     : 172.16.10.11/24\nGATEWAY     : 172.16.10.1\nDNS         : 8.8.8.8  1.1.1.1\nMAC         : 00:50:79:66:68:00\nLPORT       : 20016\nRHOST:PORT  : 127.0.0.1:20017\nMTU         : 1500\n\nPC1> ",
+      "pruebas": [
+        {
+          "destino": "172.16.10.1",
+          "comando": "ping 172.16.10.1 -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping 172.16.10.1 -c 3\n\n84 bytes from 172.16.10.1 icmp_seq=1 ttl=255 time=20.060 ms\n84 bytes from 172.16.10.1 icmp_seq=2 ttl=255 time=30.154 ms\n84 bytes from 172.16.10.1 icmp_seq=3 ttl=255 time=42.462 ms\n\nPC1> "
+        },
+        {
+          "destino": "172.16.20.100",
+          "comando": "ping 172.16.20.100 -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping 172.16.20.100 -c 3\n\n84 bytes from 172.16.20.100 icmp_seq=1 ttl=62 time=51.555 ms\n84 bytes from 172.16.20.100 icmp_seq=2 ttl=62 time=72.907 ms\n84 bytes from 172.16.20.100 icmp_seq=3 ttl=62 time=92.734 ms\n\nPC1> "
+        },
+        {
+          "destino": "1.1.1.1",
+          "comando": "ping 1.1.1.1 -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping 1.1.1.1 -c 3\n\n84 bytes from 1.1.1.1 icmp_seq=1 ttl=253 time=158.829 ms\n84 bytes from 1.1.1.1 icmp_seq=2 ttl=253 time=270.073 ms\n84 bytes from 1.1.1.1 icmp_seq=3 ttl=253 time=204.368 ms\n\nPC1> "
+        },
+        {
+          "destino": "google.com",
+          "comando": "ping google.com -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping google.com -c 3\ngoogle.com resolved to 192.178.50.78\n\n84 bytes from 192.178.50.78 icmp_seq=1 ttl=253 time=208.017 ms\n84 bytes from 192.178.50.78 icmp_seq=2 ttl=253 time=169.688 ms\n84 bytes from 192.178.50.78 icmp_seq=3 ttl=253 time=215.305 ms\n\nPC1> "
+        }
+      ],
+      "correcto": true
+    },
+    {
+      "pc": "PC2",
+      "configuracion_real": "show ip\n\nNAME        : PC2[1]\nIP/MASK     : 172.16.20.100/24\nGATEWAY     : 172.16.20.1\nDNS         : 8.8.8.8  1.1.1.1\nMAC         : 00:50:79:66:68:01\nLPORT       : 20018\nRHOST:PORT  : 127.0.0.1:20019\nMTU         : 1500\n\nPC2> ",
+      "pruebas": [
+        {
+          "destino": "172.16.20.1",
+          "comando": "ping 172.16.20.1 -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping 172.16.20.1 -c 3\n\n84 bytes from 172.16.20.1 icmp_seq=1 ttl=64 time=1.331 ms\n84 bytes from 172.16.20.1 icmp_seq=2 ttl=64 time=19.402 ms\n84 bytes from 172.16.20.1 icmp_seq=3 ttl=64 time=5.279 ms\n\nPC2> "
+        },
+        {
+          "destino": "172.16.10.11",
+          "comando": "ping 172.16.10.11 -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping 172.16.10.11 -c 3\n\n84 bytes from 172.16.10.11 icmp_seq=1 ttl=62 time=72.960 ms\n84 bytes from 172.16.10.11 icmp_seq=2 ttl=62 time=65.369 ms\n84 bytes from 172.16.10.11 icmp_seq=3 ttl=62 time=81.106 ms\n\nPC2> "
+        },
+        {
+          "destino": "1.1.1.1",
+          "comando": "ping 1.1.1.1 -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping 1.1.1.1 -c 3\n\n84 bytes from 1.1.1.1 icmp_seq=1 ttl=254 time=179.386 ms\n84 bytes from 1.1.1.1 icmp_seq=2 ttl=254 time=124.407 ms\n84 bytes from 1.1.1.1 icmp_seq=3 ttl=254 time=120.858 ms\n\nPC2> "
+        },
+        {
+          "destino": "google.com",
+          "comando": "ping google.com -c 3",
+          "respuestas": 3,
+          "correcto": true,
+          "salida_real": "ping google.com -c 3\ngoogle.com resolved to 192.178.50.78\n\n84 bytes from 192.178.50.78 icmp_seq=1 ttl=254 time=157.427 ms\n84 bytes from 192.178.50.78 icmp_seq=2 ttl=254 time=162.087 ms\n84 bytes from 192.178.50.78 icmp_seq=3 ttl=254 time=233.814 ms\n\nPC2> "
+        }
+      ],
+      "correcto": true
+    }
+  ]
+}

@@ -73,6 +73,14 @@ del sistema no se modificaron. La comprobación real se hizo después de estos a
 
 ## Reproducción
 
+El 20 de octubre, al reabrir el proyecto, MikroTik quedó detenido en `Load system`
+con GNS3 VM al 100 % de CPU. Se respaldó su disco y `qemu-img check` no encontró
+errores; la imagen base mantuvo su MD5 esperado. Se detuvo Cisco temporalmente y
+se reinició MikroTik con 512 MB de RAM, conservando su disco y configuración.
+Después se encendió Cisco: ambos SSH terminaron ok, R6 quedó verificado sin cambios
+y los ocho pings dieron 3/3. Evidencia: evidencias/recuperacion_20261020/.
+Se recomienda arrancar MikroTik antes de Cisco en esta laptop.
+
 El .gns3 incluye nodos y enlaces, sin imágenes propietarias ni discos de VM.
 En otra máquina se requieren las imágenes, aplicar la base de configuraciones/,
 crear credenciales privadas y ajustar los inventarios. El auxiliar Windows usa

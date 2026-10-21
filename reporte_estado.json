@@ -4,11 +4,11 @@
     "host": "192.168.56.202",
     "device_type": "mikrotik_routeros",
     "rol": "escritura",
-    "fecha_hora": "2026-10-20T05:14:07.214724+00:00",
+    "fecha_hora": "2026-10-21T00:26:44.627522+00:00",
     "estado": "ok",
     "datos": {
       "nombre_equipo": "mt-lab-local",
-      "tiempo_encendido": "1h37m30s",
+      "tiempo_encendido": "3m22s",
       "interfaces": [
         {
           "nombre": "ether1",
@@ -48,7 +48,7 @@
           "activa": true,
           "direcciones": [
             {
-              "direccion": "10.0.3.17/24",
+              "direccion": "10.0.3.16/24",
               "red": "10.0.3.0",
               "dinamica": true,
               "deshabilitada": false
@@ -90,15 +90,12 @@
       "interfaz": "lo-ssh-24",
       "direccion": "10.253.0.24/32",
       "comentario": "LAB01 N=24 - Raul Quesada Morera",
-      "cambios": [
-        "bridge creado",
-        "direccion creada"
-      ],
-      "resultado": "bridge creado, direccion creada",
+      "cambios": [],
+      "resultado": "sin cambios",
       "verificado": true,
       "antes": {
-        "bridge": false,
-        "direccion": false
+        "bridge": true,
+        "direccion": true
       },
       "despues": {
         "bridge": true,
@@ -111,11 +108,11 @@
     "host": "192.168.56.203",
     "device_type": "cisco_ios",
     "rol": "lectura",
-    "fecha_hora": "2026-10-20T05:14:21.370674+00:00",
+    "fecha_hora": "2026-10-21T00:26:50.516095+00:00",
     "estado": "ok",
     "datos": {
       "nombre_equipo": "cisco-lab-local",
-      "tiempo_encendido": "14 minutes",
+      "tiempo_encendido": "1 minute",
       "interfaces": [
         {
           "nombre": "FastEthernet0/0",
@@ -141,7 +138,11 @@
           "nombre": "NVI0",
           "estado": "up",
           "protocolo": "up",
-          "direcciones": []
+          "direcciones": [
+            {
+              "direccion": "192.168.56.203"
+            }
+          ]
         }
       ],
       "rutas_por_defecto": [

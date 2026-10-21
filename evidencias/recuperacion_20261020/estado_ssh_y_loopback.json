@@ -1,0 +1,161 @@
+[
+  {
+    "equipo": "mt-lab",
+    "host": "192.168.56.202",
+    "device_type": "mikrotik_routeros",
+    "rol": "escritura",
+    "fecha_hora": "2026-10-21T00:26:44.627522+00:00",
+    "estado": "ok",
+    "datos": {
+      "nombre_equipo": "mt-lab-local",
+      "tiempo_encendido": "3m22s",
+      "interfaces": [
+        {
+          "nombre": "ether1",
+          "tipo": "ether",
+          "activa": true,
+          "direcciones": [
+            {
+              "direccion": "10.60.30.202/24",
+              "red": "10.60.30.0",
+              "dinamica": false,
+              "deshabilitada": false
+            },
+            {
+              "direccion": "192.168.56.202/24",
+              "red": "192.168.56.0",
+              "dinamica": false,
+              "deshabilitada": false
+            }
+          ]
+        },
+        {
+          "nombre": "ether2",
+          "tipo": "ether",
+          "activa": true,
+          "direcciones": [
+            {
+              "direccion": "172.16.20.1/24",
+              "red": "172.16.20.0",
+              "dinamica": false,
+              "deshabilitada": false
+            }
+          ]
+        },
+        {
+          "nombre": "ether3",
+          "tipo": "ether",
+          "activa": true,
+          "direcciones": [
+            {
+              "direccion": "10.0.3.16/24",
+              "red": "10.0.3.0",
+              "dinamica": true,
+              "deshabilitada": false
+            }
+          ]
+        },
+        {
+          "nombre": "lo",
+          "tipo": "loopback",
+          "activa": true,
+          "direcciones": []
+        },
+        {
+          "nombre": "lo-ssh-24",
+          "tipo": "bridge",
+          "activa": true,
+          "direcciones": [
+            {
+              "direccion": "10.253.0.24/32",
+              "red": "10.253.0.24",
+              "dinamica": false,
+              "deshabilitada": false
+            }
+          ]
+        }
+      ],
+      "rutas_por_defecto": [
+        {
+          "destino": "0.0.0.0/0",
+          "gateway": "10.0.3.2",
+          "gateway_inmediato": "10.0.3.2%ether3",
+          "distancia": 1,
+          "activa": true
+        }
+      ]
+    },
+    "configuracion": {
+      "modo": "aplicar",
+      "interfaz": "lo-ssh-24",
+      "direccion": "10.253.0.24/32",
+      "comentario": "LAB01 N=24 - Raul Quesada Morera",
+      "cambios": [],
+      "resultado": "sin cambios",
+      "verificado": true,
+      "antes": {
+        "bridge": true,
+        "direccion": true
+      },
+      "despues": {
+        "bridge": true,
+        "direccion": true
+      }
+    }
+  },
+  {
+    "equipo": "cisco-gns3",
+    "host": "192.168.56.203",
+    "device_type": "cisco_ios",
+    "rol": "lectura",
+    "fecha_hora": "2026-10-21T00:26:50.516095+00:00",
+    "estado": "ok",
+    "datos": {
+      "nombre_equipo": "cisco-lab-local",
+      "tiempo_encendido": "1 minute",
+      "interfaces": [
+        {
+          "nombre": "FastEthernet0/0",
+          "estado": "up",
+          "protocolo": "up",
+          "direcciones": [
+            {
+              "direccion": "192.168.56.203"
+            }
+          ]
+        },
+        {
+          "nombre": "FastEthernet1/0",
+          "estado": "up",
+          "protocolo": "up",
+          "direcciones": [
+            {
+              "direccion": "172.16.10.1"
+            }
+          ]
+        },
+        {
+          "nombre": "NVI0",
+          "estado": "up",
+          "protocolo": "up",
+          "direcciones": [
+            {
+              "direccion": "192.168.56.203"
+            }
+          ]
+        }
+      ],
+      "rutas_por_defecto": [
+        {
+          "destino": "0.0.0.0/0",
+          "gateway": "192.168.56.202",
+          "activa": true
+        }
+      ]
+    },
+    "configuracion": {
+      "resultado": "solo lectura",
+      "cambios": []
+    }
+  }
+]

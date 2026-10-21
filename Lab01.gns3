@@ -388,7 +388,7 @@
                     "platform": "x86_64",
                     "process_priority": "normal",
                     "qemu_path": "/usr/bin/qemu-system-x86_64",
-                    "ram": 256,
+                    "ram": 512,
                     "replicate_network_connection_state": true,
                     "tpm": false,
                     "uefi": false,
